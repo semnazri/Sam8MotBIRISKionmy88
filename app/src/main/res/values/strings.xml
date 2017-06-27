@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BIRISK</string>
+    <string name="notnull">Username dan Password tidak boleh kosong</string>
+    <string name="usernamenull">Harap isi Email anda</string>
+    <string name="passnull">Password tidak boleh kosong</string>
+    <string name="navigation_drawer_open">Navigation Open</string>
+    <string name="navigation_drawer_close">Navigation Close</string>
+    <string name="notnull_forgot">Email dan Nama Tidak boleh kosong</string>
+    <string name="email_null">Email tidak boleh kosong</string>
+    <string name="namenull">Nama tidak boleh kosong</string>
+    <string name="doesntmatch">Password isn\'t match</string>
+</resources>

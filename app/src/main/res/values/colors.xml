@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="biru_bi">#00539f</color>
+    <color name="biru_light">#00a8ec</color>
+    <color name="black50">#96000000</color>
+    <color name="abu">#999999</color>
+    <color name="abu2">#777777</color>
+    <color name="abu3">#cccccc</color>
+    <color name="birudongker">#1a324e</color>
+    <color name="red">#c6252a</color>
+    <color name="black_alpha_40">#66000000</color>
+</resources>

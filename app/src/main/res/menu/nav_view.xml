@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/satu"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:title="Home" />
+    </group>
+
+    <group
+        android:id="@+id/dua"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/account"
+            android:title="Account" />
+    </group>
+
+    <group
+        android:id="@+id/tiga"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/r_dictionary"
+            android:title="Risk Dictionary" />
+        </group>
+    <group
+        android:id="@+id/empat"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/r_repository"
+            android:title="Risk Repository" />
+        </group>
+    <group
+        android:id="@+id/lima"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/r_dasrhboard"
+            android:title="Risk Dashboard" />
+        </group>
+
+    <group
+        android:id="@+id/enam"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/incident"
+            android:title="Incident Report" />
+        </group>
+
+    <group
+        android:id="@+id/tujuh"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/signout"
+            android:title="Logout" />
+    </group>
+
+
+</menu>

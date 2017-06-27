@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background02"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_risk_dict"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:clickable="false"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="-170dp"
+                android:background="@drawable/btn_rounded_home"
+                android:text="RISK DICTIONARY"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:clickable="false"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="-290dp"
+                android:background="@drawable/rounded_bton"
+                android:drawableStart="@mipmap/ic_launcher"
+                android:paddingLeft="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_risk_repo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:clickable="false"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="-170dp"
+                android:background="@drawable/btn_rounded_home"
+                android:text="RISK DREPOSITORY"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:clickable="false"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="-290dp"
+                android:background="@drawable/rounded_bton"
+                android:drawableStart="@mipmap/ic_launcher"
+                android:paddingLeft="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_risk_dash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:clickable="false"
+                android:id="@+id/button"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="-170dp"
+                android:background="@drawable/btn_rounded_home"
+                android:text="RISK DASHBOARD"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:clickable="false"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="-290dp"
+                android:paddingLeft="10dp"
+                android:background="@drawable/rounded_bton"
+                android:drawableStart="@mipmap/ic_launcher"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_incident_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="-170dp"
+                android:text="INCIDENT REPORT"
+                android:textColor="@color/white"
+                android:clickable="false"
+                android:textSize="20sp"
+                android:background="@drawable/btn_rounded_home_red" />
+            <Button
+                android:clickable="false"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="-290dp"
+                android:paddingLeft="10dp"
+                android:background="@drawable/rounded_bton_merah"
+                android:drawableStart="@mipmap/ic_launcher"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/bi" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="30dp"
+            android:text="Departement\nManajemen Resiko"
+            android:textAlignment="center"
+            android:textColor="@color/biru_bi"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

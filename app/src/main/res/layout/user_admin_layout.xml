@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background02"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:src="@drawable/bi"
+            android:layout_width="250dp"
+            android:layout_height="80dp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/logoapps" />
+
+    <Button
+        android:id="@+id/btn_user"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/btn_rounded"
+        android:text="USER"
+        android:textColor="@color/biru_bi"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_admin"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/btn_rounded"
+        android:text="ADMIN"
+        android:textColor="@color/biru_bi"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_marginTop="30dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Derpartemen\nManajemen Resiko"/>
+
+
+
+</LinearLayout>

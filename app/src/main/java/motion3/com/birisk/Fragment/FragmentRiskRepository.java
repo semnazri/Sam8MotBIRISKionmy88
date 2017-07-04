@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import motion3.com.birisk.MainActivity;
 import motion3.com.birisk.R;
 
 /**
@@ -23,6 +24,8 @@ public class FragmentRiskRepository extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.risk_repository, container, false);
+        MainActivity.iv.setVisibility(View.VISIBLE);
+        MainActivity.logo.setVisibility(View.GONE);
         return view;
     }
 }

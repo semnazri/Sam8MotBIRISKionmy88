@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import motion3.com.birisk.MainActivity;
 import motion3.com.birisk.R;
 
 /**
@@ -28,6 +29,8 @@ public class FragmentRiskDashboard extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.risk_dashboard,container,false);
+        MainActivity.iv.setVisibility(View.VISIBLE);
+        MainActivity.logo.setVisibility(View.GONE);
         imageview = (ImageView) view.findViewById(R.id.img_pie);
         Glide.with(getActivity()).load(url).into(imageview);
 

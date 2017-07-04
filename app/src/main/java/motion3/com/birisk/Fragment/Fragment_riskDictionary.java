@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import motion3.com.birisk.MainActivity;
 import motion3.com.birisk.R;
 
 /**
@@ -22,6 +23,8 @@ public class Fragment_riskDictionary extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_risk_dictionary, container, false);
+        MainActivity.iv.setVisibility(View.VISIBLE);
+        MainActivity.logo.setVisibility(View.GONE);
         return view;
     }
 }

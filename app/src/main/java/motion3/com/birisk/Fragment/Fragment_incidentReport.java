@@ -25,6 +25,7 @@ public class Fragment_incidentReport extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.incident_report, container, false);
         MainActivity.iv.setVisibility(View.VISIBLE);
+        MainActivity.logo.setVisibility(View.GONE);
         MainActivity.iv.setImageResource(R.drawable.report);
 
         return view;

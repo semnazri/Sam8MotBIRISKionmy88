@@ -28,6 +28,9 @@ public class FragmentHome extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_frament, container, false);
+        MainActivity.logo.setVisibility(View.VISIBLE);
+        MainActivity.iv.setVisibility(View.GONE);
+
         ll_risk_dict = (LinearLayout) view.findViewById(R.id.ll_risk_dict);
         ll_incident = (LinearLayout) view.findViewById(R.id.ll_incident_report);
         ll_dashboard = (LinearLayout) view.findViewById(R.id.ll_risk_dash);

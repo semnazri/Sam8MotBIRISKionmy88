@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background02"
+    android:background="@drawable/background_apps"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:src="@drawable/bi"
+            android:src="@drawable/svg_logo_bi"
             android:layout_width="250dp"
             android:layout_height="80dp" />
     </RelativeLayout>

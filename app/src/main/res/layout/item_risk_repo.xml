@@ -7,12 +7,12 @@
     android:orientation="horizontal">
 
     <TextView
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:id="@+id/file_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:text="ovovuwevuwe"
         android:textColor="@color/black" />
 
@@ -25,11 +25,12 @@
         android:id="@+id/file_downloadname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_marginLeft="10dp"
-        android:text="asdgsadgsadklsuku"
-        android:singleLine="false"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
         android:drawableRight="@drawable/ic_file_download_black_24dp"
+        android:singleLine="false"
+        android:text="asdgsadgsadklsuku"
         android:textColor="@color/black" />
 
 </LinearLayout>

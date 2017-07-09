@@ -30,6 +30,7 @@ public class FragmentRiskDashboard extends Fragment {
 
         view = inflater.inflate(R.layout.risk_dashboard,container,false);
         MainActivity.iv.setVisibility(View.VISIBLE);
+        MainActivity.iv.setImageResource(R.drawable.risk_dashboard);
         MainActivity.logo.setVisibility(View.GONE);
         imageview = (ImageView) view.findViewById(R.id.img_pie);
         Glide.with(getActivity()).load(url).into(imageview);

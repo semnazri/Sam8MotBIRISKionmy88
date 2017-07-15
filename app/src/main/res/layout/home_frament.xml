@@ -6,127 +6,44 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_weight="1"
+        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/ll_risk_dict"
+        <ImageView
+            android:id="@+id/risk_dictionary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="90dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_risk_dictionary" />
 
-
-            <Button
-                android:clickable="false"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="-170dp"
-                android:background="@drawable/btn_rounded_home"
-                android:text="RISK DICTIONARY"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <Button
-                android:clickable="false"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginLeft="-290dp"
-                android:background="@drawable/rounded_bton"
-                android:drawableLeft="@mipmap/ic_launcher"
-                android:paddingLeft="10dp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_risk_repo"
+        <ImageView
+            android:id="@+id/risk_repository"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="90dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_risk_repository" />
 
-
-            <Button
-                android:clickable="false"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="-170dp"
-                android:background="@drawable/btn_rounded_home"
-                android:text="RISK REPOSITORY"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <Button
-                android:clickable="false"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginLeft="-290dp"
-                android:background="@drawable/rounded_bton"
-                android:drawableStart="@mipmap/ic_launcher"
-                android:paddingLeft="10dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_risk_dash"
+        <ImageView
+            android:id="@+id/risk_dashbaord"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="90dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_risk_dashboard" />
 
-
-            <Button
-                android:clickable="false"
-                android:id="@+id/button"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="-170dp"
-                android:background="@drawable/btn_rounded_home"
-                android:text="RISK DASHBOARD"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <Button
-                android:clickable="false"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginLeft="-290dp"
-                android:paddingLeft="10dp"
-                android:background="@drawable/rounded_bton"
-                android:drawableStart="@mipmap/ic_launcher"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_incident_report"
+        <ImageView
+            android:id="@+id/incident_report"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="90dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_incident_report" />
 
-
-            <Button
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="-170dp"
-                android:text="INCIDENT REPORT"
-                android:textColor="@color/white"
-                android:clickable="false"
-                android:textSize="20sp"
-                android:background="@drawable/btn_rounded_home_red" />
-            <Button
-                android:clickable="false"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginLeft="-290dp"
-                android:paddingLeft="10dp"
-                android:background="@drawable/rounded_bton_merah"
-                android:drawableStart="@mipmap/ic_launcher"/>
-        </LinearLayout>
 
     </LinearLayout>
 

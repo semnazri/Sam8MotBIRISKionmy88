@@ -15,14 +15,20 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import motion3.com.birisk.Fragment.FragmentHome;
 import motion3.com.birisk.Fragment.FragmentLogin;
+import motion3.com.birisk.Fragment.FragmentRiskDashboard;
+import motion3.com.birisk.Fragment.FragmentRiskRepository;
+import motion3.com.birisk.Fragment.Fragment_incidentReport;
+import motion3.com.birisk.Fragment.Fragment_riskDictionary;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -31,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static Context context;
     public static ActionBarDrawerToggle toggle;
     public static DrawerLayout mDrawerLayout;
-    public static ImageView iv,logo;
+    public static ImageView iv, logo;
     public static TextView tv;
     Toolbar mToolbar;
     NavigationView navigationView;
@@ -40,7 +46,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.splasch_screen);
         setContentView(R.layout.activity_main);
 
         context = getApplicationContext();
@@ -53,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Showtoolbar();
         iv = (ImageView) findViewById(R.id.img_tolbar);
-        logo = (ImageView)findViewById(R.id.logo_toolbar_center);
+        logo = (ImageView) findViewById(R.id.logo_toolbar_center);
 //        iv.setVisibility(View.GONE);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -94,6 +102,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main_bar, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.back:
+                onBackPressed();
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
         int id = item.getItemId();
@@ -101,9 +128,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         if (id == R.id.home) {
-            // Handle the camera action
-//            fragment = new FragmentHome();
             fragment = new FragmentHome();
+        } else if (id == R.id.account) {
+            Toast.makeText(activity, "Cooming soon!", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.r_dictionary) {
+            fragment = new Fragment_riskDictionary();
+        } else if (id == R.id.r_repository) {
+            fragment = new FragmentRiskRepository();
+        } else if (id == R.id.r_dasrhboard) {
+            fragment = new FragmentRiskDashboard();
+        } else if (id == R.id.incident) {
+            fragment = new Fragment_incidentReport();
         } else if (id == R.id.signout) {
             Signout();
         }
@@ -135,7 +170,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
 //        Fragment fragment = manager.findFragmentById(R.id.container_body);
 //        String fragmentName = fragment.getClass().getSimpleName();
-//
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment f = fm.findFragmentById(R.id.container_body); // get the fragment that is currently loaded in placeholder
+        Object tag = f.getTag();
         int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
 //
 //        Log.d("nana", fragmentName);
@@ -150,29 +187,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
             Log.d("ada disini ya", "drower close");
-        }
-        else if (backStackCount >= 2) {
-            fragmentManager.popBackStack();
+        } else if (tag.equals("home")){
             FragmentManager.BackStackEntry entry = getSupportFragmentManager().getBackStackEntryAt(
                     1);
             getSupportFragmentManager().popBackStack(entry.getId(),
                     FragmentManager.POP_BACK_STACK_INCLUSIVE);
             getSupportFragmentManager().executePendingTransactions();
 
-            navigationView.getMenu().getItem(0).setChecked(true);
-
         }
+//        else if (backStackCount >= 2) {
+//            fragmentManager.popBackStack();
+//            FragmentManager.BackStackEntry entry = getSupportFragmentManager().getBackStackEntryAt(
+//                    1);
+//            getSupportFragmentManager().popBackStack(entry.getId(),
+//                    FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//            getSupportFragmentManager().executePendingTransactions();
+//
+//            navigationView.getMenu().getItem(0).setChecked(true);
+//
+//        }
         else
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setMessage("Do you want to close this application?")
-                    .setPositiveButton("Yes",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int wich) {
-                                    finish();
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setMessage("Do you want to close this application?")
+                .setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int wich) {
+                                finish();
 
-                                }
-                            }).setNegativeButton("No", null).show();
+                            }
+                        }).setNegativeButton("No", null).show();
     }
 }

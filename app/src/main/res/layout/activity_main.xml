@@ -33,7 +33,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:layout_marginTop="55dp"
-        android:background="@color/abu"
+        android:background="@color/abu3"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
         app:itemBackground="@drawable/nav_selector"

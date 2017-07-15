@@ -91,7 +91,7 @@ public class FragmentRiskRepository extends Fragment {
 
         view = inflater.inflate(R.layout.risk_repository, container, false);
         MainActivity.iv.setVisibility(View.VISIBLE);
-//        MainActivity.iv.setImageResource(R.drawable.risk);
+        MainActivity.iv.setImageResource(R.drawable.risk_repository);
         MainActivity.logo.setVisibility(View.GONE);
         LinearLayout parent = (LinearLayout) view.findViewById(R.id.parent);
         setupUI(parent);

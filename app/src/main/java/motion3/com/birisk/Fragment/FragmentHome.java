@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import motion3.com.birisk.MainActivity;
@@ -23,7 +24,7 @@ import motion3.com.birisk.R;
 public class FragmentHome extends Fragment {
 
     private View view;
-    private LinearLayout ll_risk_dict,ll_incident,ll_dashboard, ll_risk_repo;
+    private ImageView ll_risk_dict,ll_incident,ll_dashboard, ll_risk_repo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,10 +32,10 @@ public class FragmentHome extends Fragment {
         MainActivity.logo.setVisibility(View.VISIBLE);
         MainActivity.iv.setVisibility(View.GONE);
 
-        ll_risk_dict = (LinearLayout) view.findViewById(R.id.ll_risk_dict);
-        ll_incident = (LinearLayout) view.findViewById(R.id.ll_incident_report);
-        ll_dashboard = (LinearLayout) view.findViewById(R.id.ll_risk_dash);
-        ll_risk_repo = (LinearLayout) view.findViewById(R.id.ll_risk_repo);
+        ll_risk_dict = (ImageView) view.findViewById(R.id.risk_dictionary);
+        ll_incident = (ImageView) view.findViewById(R.id.incident_report);
+        ll_dashboard = (ImageView) view.findViewById(R.id.risk_dashbaord);
+        ll_risk_repo = (ImageView) view.findViewById(R.id.risk_repository);
 
 //        MainActivity.iv.setVisibility(View.GONE);
 

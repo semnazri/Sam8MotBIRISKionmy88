@@ -16,12 +16,11 @@
         android:layout_marginTop="30dp"
         android:background="@color/white"
         android:singleLine="true"
-        android:drawableRight="@drawable/ic_search_black_24dp"
+        android:drawableRight="@drawable/ic_svg_icon_09"
         android:hint="Search.."
-        android:paddingBottom="10dp"
+        android:paddingTop="8dp"
         android:paddingLeft="20dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp" />
+        android:paddingRight="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

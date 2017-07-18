@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
             Log.d("ada disini ya", "drower close");
-        } else if (tag.equals("home")){
+        } else if (backStackCount >= 2 && tag.equals("home")){
             FragmentManager.BackStackEntry entry = getSupportFragmentManager().getBackStackEntryAt(
                     1);
             getSupportFragmentManager().popBackStack(entry.getId(),

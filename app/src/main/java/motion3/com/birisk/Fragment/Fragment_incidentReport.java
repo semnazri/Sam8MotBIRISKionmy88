@@ -1,10 +1,13 @@
 package motion3.com.birisk.Fragment;
 
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import motion3.com.birisk.MainActivity;
 import motion3.com.birisk.R;
@@ -20,6 +23,9 @@ import motion3.com.birisk.R;
 public class Fragment_incidentReport extends Fragment {
 
     private View view;
+    private Vibrator vibe;
+    private RadioGroup radioGroup;
+    private RadioButton rB1,rB2,rB3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

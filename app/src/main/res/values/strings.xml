@@ -3,10 +3,12 @@
     <string name="notnull">Username dan Password tidak boleh kosong</string>
     <string name="usernamenull">Harap isi Email anda</string>
     <string name="passnull">Password tidak boleh kosong</string>
+    <string name="pass_false">Password harus lebih dari 6 karakter</string>
     <string name="navigation_drawer_open">Navigation Open</string>
     <string name="navigation_drawer_close">Navigation Close</string>
     <string name="notnull_forgot">Email dan Nama Tidak boleh kosong</string>
     <string name="email_null">Email tidak boleh kosong</string>
+    <string name="email_false">Mohon masukan email yang valid</string>
     <string name="namenull">Nama tidak boleh kosong</string>
     <string name="doesntmatch">Password isn\'t match</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>

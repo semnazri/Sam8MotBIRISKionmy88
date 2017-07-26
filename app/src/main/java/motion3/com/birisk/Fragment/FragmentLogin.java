@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -42,6 +42,7 @@ public class FragmentLogin extends Fragment {
     private TextView txt_forgot;
     private Button btn_login;
     private SharedPreferences prefsprivate;
+    private Vibrator vibe;
     private TextView.OnEditorActionListener mOnEditorAction =
             new TextView.OnEditorActionListener() {
                 @Override
@@ -89,6 +90,7 @@ public class FragmentLogin extends Fragment {
         btn_login = (Button) view.findViewById(R.id.btn_login);
         edt_pass.setOnEditorActionListener(mOnEditorAction);
         txt_forgot = (TextView) view.findViewById(R.id.forgot_pass);
+        vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,19 +127,21 @@ public class FragmentLogin extends Fragment {
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            edt_pass.setError(getString(R.string.notnull));
-            focusView = edt_pass;
-            cancel = true;
-        }
+//        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+//            edt_pass.setError(getString(R.string.notnull));
+//            focusView = edt_pass;
+//            cancel = true;
+//        }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(username)) {
             edt_username.setError(getString(R.string.usernamenull));
             focusView = edt_username;
+            vibe.vibrate(100);
             cancel = true;
-        } else if (!isEmailValid(password)) {
+        } else if (!isPasswordValid(password)) {
             edt_pass.setError(getString(R.string.passnull));
+            vibe.vibrate(100);
             focusView = edt_pass;
             cancel = true;
         }
@@ -177,7 +181,7 @@ public class FragmentLogin extends Fragment {
 
     private boolean isEmailValid(String username) {
         //TODO: Replace this with your own logic
-        return username.length() > 3;
+        return username.length() > 3 && username.contains("@");
     }
 
     private boolean isPasswordValid(String password) {

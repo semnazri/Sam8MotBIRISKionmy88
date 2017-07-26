@@ -17,8 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import motion3.com.birisk.Adapter.DummyAdapter;
@@ -102,6 +100,7 @@ public class FragmentRiskRepository extends Fragment {
         adapter = new DummyAdapter(getActivity(), list_model);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(lm);
+//        rv.addItemDecoration(new DividerItemDecoration(getActivity()));
         rv.setAdapter(adapter);
         edt = (EditText) view.findViewById(R.id.edt_search);
 
@@ -115,6 +114,7 @@ public class FragmentRiskRepository extends Fragment {
         allNews.add(new Dummy_model(3, "Pertolongan Pertama pada kebakaran", "cara menanggulangi kebakaran besar"));
         allNews.add(new Dummy_model(4, "Pertolongan Pertama pada Bencana Gempa", "Panduan Prosedur Sigap Bencana Gempa"));
         allNews.add(new Dummy_model(5, "Pertolongan Pertama pada Pemadaman Listrik", "Panduan dummy"));
+        allNews.add(new Dummy_model(6, "Pertolongan Pertama pada Pemadaman Api", "Panduan dummy"));
 
 
         return allNews;

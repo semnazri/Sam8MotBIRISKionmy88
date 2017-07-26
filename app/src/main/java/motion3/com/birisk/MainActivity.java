@@ -24,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import motion3.com.birisk.Fragment.FragmentHome;
-import motion3.com.birisk.Fragment.FragmentLogin;
 import motion3.com.birisk.Fragment.FragmentRiskDashboard;
 import motion3.com.birisk.Fragment.FragmentRiskRepository;
 import motion3.com.birisk.Fragment.Fragment_incidentReport;
@@ -161,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void Signout() {
-        Intent i = new Intent(this, FragmentLogin.class);
+        Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
         finish();
     }

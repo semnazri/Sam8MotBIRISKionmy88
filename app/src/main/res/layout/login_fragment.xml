@@ -135,7 +135,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingLeft="30dp"
-            android:text="Departement\nManajemen Resiko"
+            android:text="Departemen\nManajemen Risiko"
             android:textAlignment="center"
             android:textColor="@color/biru_bi"
             android:textSize="12sp"

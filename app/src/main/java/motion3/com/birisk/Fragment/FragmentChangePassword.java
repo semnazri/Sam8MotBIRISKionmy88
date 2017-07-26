@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -39,6 +40,7 @@ public class FragmentChangePassword extends Fragment {
     private CircleImageView image_person;
     private EditText edt_email, edt_new_pass, edt_new_retypePass;
     private Button btn_submit;
+    private Vibrator vibe;
     private SharedPreferences prefsprivate;
     private TextView.OnEditorActionListener mOnEditorAction =
             new TextView.OnEditorActionListener() {
@@ -93,6 +95,7 @@ public class FragmentChangePassword extends Fragment {
         edt_new_retypePass = (EditText) view.findViewById(R.id.edt_repass_changepass);
         btn_submit = (Button) view.findViewById(R.id.btn_user);
         edt_new_retypePass.setOnEditorActionListener(mOnEditorAction);
+        vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,10 +118,26 @@ public class FragmentChangePassword extends Fragment {
 
         boolean cancel = false;
         View focusView = null;
-
-        if (!TextUtils.isEmpty(email) || !isPasswordValid(newpass)) {
-            edt_new_pass.setError(getString(R.string.notnull));
+//
+//        if (!TextUtils.isEmpty(email) || !isPasswordValid(newpass)) {
+//            edt_new_pass.setError(getString(R.string.notnull));
+//            focusView = edt_new_pass;
+//            cancel = true;
+//        }
+        if (!isEmailValid(email)){
+            edt_email.setError(getString(R.string.email_false));
+            focusView = edt_email;
+            vibe.vibrate(100);
+            cancel = true;
+        }else if (!isPasswordValid(newpass)) {
+            edt_new_pass.setError(getString(R.string.pass_false));
             focusView = edt_new_pass;
+            vibe.vibrate(100);
+            cancel = true;
+        } else if (!isPasswordValid(retypepass)) {
+            edt_new_retypePass.setError(getString(R.string.pass_false));
+            vibe.vibrate(100);
+            focusView = edt_new_retypePass;
             cancel = true;
         }
 
@@ -126,24 +145,28 @@ public class FragmentChangePassword extends Fragment {
         if (TextUtils.isEmpty(email)) {
             edt_email.setError(getString(R.string.usernamenull));
             focusView = edt_email;
+            vibe.vibrate(100);
             cancel = true;
-        }
-
-            if (!isEmailValid(newpass)) {
+        }else if (TextUtils.isEmpty(newpass)) {
             edt_new_pass.setError(getString(R.string.passnull));
             focusView = edt_new_pass;
+            vibe.vibrate(100);
             cancel = true;
-        } else if (!isEmailValid(retypepass)) {
+        }else if (TextUtils.isEmpty(retypepass)) {
             edt_new_retypePass.setError(getString(R.string.passnull));
             focusView = edt_new_retypePass;
+            vibe.vibrate(100);
             cancel = true;
         }
 
-        if (newpass.equals(retypepass)) {
+
+
+        if (newpass.equals(retypepass) && isPasswordValid(newpass) && isPasswordValid(retypepass)) {
             tohome();
-        }else{
+        }else {
             edt_new_retypePass.setError(getString(R.string.doesntmatch));
             focusView = edt_new_retypePass;
+            vibe.vibrate(100);
             cancel = true;
         }
 
@@ -169,7 +192,7 @@ public class FragmentChangePassword extends Fragment {
 
     private boolean isEmailValid(String username) {
         //TODO: Replace this with your own logic
-        return username.length() > 3;
+        return username.length() > 6 && username.contains("@");
     }
 
     private boolean isPasswordValid(String password) {

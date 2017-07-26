@@ -1,7 +1,9 @@
 package motion3.com.birisk.Fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
@@ -30,6 +32,7 @@ public class FragmentLostPassword extends Fragment {
 
     private View view;
     private EditText edt_email, edt_name;
+    private Vibrator vibe;
     private TextView.OnEditorActionListener mOnEditorAction =
             new TextView.OnEditorActionListener() {
                 @Override
@@ -76,6 +79,7 @@ public class FragmentLostPassword extends Fragment {
         edt_email = (EditText) view.findViewById(R.id.edt_email_forgot);
         edt_name = (EditText) view.findViewById(R.id.edt_name_forgot);
         edt_name.setOnEditorActionListener(mOnEditorAction);
+        vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
         LinearLayout parent = (LinearLayout) view.findViewById(R.id.parent);
         setupUI(parent);
@@ -95,20 +99,22 @@ public class FragmentLostPassword extends Fragment {
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            edt_name.setError(getString(R.string.notnull_forgot));
-            focusView = edt_name;
-            cancel = true;
-        }
+//        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+//            edt_name.setError(getString(R.string.notnull_forgot));
+//            focusView = edt_name;
+//            cancel = true;
+//        }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(username)) {
             edt_email.setError(getString(R.string.email_null));
             focusView = edt_email;
+            vibe.vibrate(100);
             cancel = true;
         } else if (!isEmailValid(password)) {
             edt_name.setError(getString(R.string.namenull));
             focusView = edt_name;
+            vibe.vibrate(100);
             cancel = true;
         }
 

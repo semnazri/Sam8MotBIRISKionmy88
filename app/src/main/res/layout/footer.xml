@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:text="Departement\nManajemen Resiko"
+            android:text="Departemen\nManajemen Risiko"
             android:textAlignment="center"
             android:textColor="@color/biru_bi"
             android:textSize="12sp"

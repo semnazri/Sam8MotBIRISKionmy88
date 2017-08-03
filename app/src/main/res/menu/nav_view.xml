@@ -21,18 +21,26 @@
         android:id="@+id/tiga"
         android:checkableBehavior="single">
         <item
+            android:id="@+id/account_list"
+            android:title="Account List" />
+    </group>
+
+    <group
+        android:id="@+id/empat"
+        android:checkableBehavior="single">
+        <item
             android:id="@+id/r_dictionary"
             android:title="Risk Dictionary" />
         </group>
     <group
-        android:id="@+id/empat"
+        android:id="@+id/lima"
         android:checkableBehavior="single">
         <item
             android:id="@+id/r_repository"
             android:title="Risk Repository" />
         </group>
     <group
-        android:id="@+id/lima"
+        android:id="@+id/enam"
         android:checkableBehavior="single">
         <item
             android:id="@+id/r_dasrhboard"
@@ -40,7 +48,7 @@
         </group>
 
     <group
-        android:id="@+id/enam"
+        android:id="@+id/tujuh"
         android:checkableBehavior="single">
         <item
             android:id="@+id/incident"
@@ -48,7 +56,7 @@
         </group>
 
     <group
-        android:id="@+id/tujuh"
+        android:id="@+id/delapan"
         android:checkableBehavior="single">
         <item
             android:id="@+id/signout"

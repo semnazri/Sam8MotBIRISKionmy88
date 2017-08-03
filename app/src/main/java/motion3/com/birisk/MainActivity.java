@@ -23,9 +23,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import motion3.com.birisk.Fragment.FragmentChangePassword;
 import motion3.com.birisk.Fragment.FragmentHome;
 import motion3.com.birisk.Fragment.FragmentRiskDashboard;
 import motion3.com.birisk.Fragment.FragmentRiskRepository;
+import motion3.com.birisk.Fragment.Fragment_accountList;
 import motion3.com.birisk.Fragment.Fragment_incidentReport;
 import motion3.com.birisk.Fragment.Fragment_riskDictionary;
 
@@ -129,8 +131,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.home) {
             fragment = new FragmentHome();
         } else if (id == R.id.account) {
-            Toast.makeText(activity, "Cooming soon!", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.r_dictionary) {
+            fragment = new FragmentChangePassword();
+        } else if (id == R.id.account_list){
+            fragment = new Fragment_accountList();
+        }else if (id == R.id.r_dictionary) {
             fragment = new Fragment_riskDictionary();
         } else if (id == R.id.r_repository) {
             fragment = new FragmentRiskRepository();

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_apps"
@@ -23,10 +22,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:background="@color/abu"
                 android:orientation="horizontal">
 
@@ -46,18 +47,18 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:textSize="16sp"
-                    android:text=":" />
+                    android:text=":"
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/edt_subject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/abu"
-                    android:hint="Subyek"
                     android:layout_marginLeft="10dp"
-                    android:singleLine="false" />
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:background="@color/abu"
+                    android:hint="Subyek" />
 
             </LinearLayout>
 
@@ -79,19 +80,22 @@
                     android:text="Catatan"
                     android:textSize="14sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|top"
                     android:layout_marginLeft="10dp"
-                    android:textSize="16sp"
-                    android:text=":" />
+                    android:text=":"
+                    android:textSize="16sp" />
+
                 <EditText
                     android:id="@+id/edt_notes"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:layout_weight="1"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
                     android:background="@color/abu3"
                     android:gravity="top"
                     android:hint="catatan"
@@ -117,20 +121,23 @@
                     android:text="Lokasi"
                     android:textSize="14sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:textSize="16sp"
-                    android:text=":" />
+                    android:text=":"
+                    android:textSize="16sp" />
+
                 <EditText
                     android:id="@+id/edt_location"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/abu"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:background="@color/abu"
                     android:hint="Lokasi Anda"
                     android:singleLine="false" />
 
@@ -152,7 +159,7 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:paddingLeft="10dp"
-                    android:text="Tanggal Pelaporan"
+                    android:text="Tanggal Kejadian"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -161,20 +168,21 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:textSize="16sp"
-                    android:text=":" />
+                    android:text=":"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/edt_tgl_pelaporan"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:background="@color/abu3"
                     android:clickable="true"
                     android:editable="false"
                     android:focusable="false"
-                    android:layout_marginLeft="10dp"
-                    android:background="@color/abu3"
-                    android:hint="Tanggal Pelaporan"
+                    android:textSize="14sp"
+                    android:hint="Tanggal Kejadian"
                     android:singleLine="false" />
 
             </LinearLayout>
@@ -198,19 +206,25 @@
                     android:text="Waktu Kejadian"
                     android:textSize="14sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:textSize="16sp"
-                    android:text=":" />
+                    android:text=":"
+                    android:textSize="16sp" />
+
                 <EditText
                     android:id="@+id/edt_wkt_kejadian"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:textSize="14sp"
+                    android:focusable="false"
                     android:background="@color/abu3"
                     android:hint="Waktu Kejadian"
                     android:singleLine="false" />
@@ -236,21 +250,26 @@
                     android:text="Tanggal Tindak Lanjut"
                     android:textSize="14sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:textSize="16sp"
-                    android:text=":" />
+                    android:text=":"
+                    android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/edt_tgl_kejadian"
+                    android:id="@+id/edt_tgl_tindaklanjut"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
                     android:background="@color/abu3"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:textSize="14sp"
+                    android:focusable="false"
                     android:hint="Tanggal tindak lanjut"
                     android:singleLine="false" />
 
@@ -267,6 +286,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/textView2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="top"
@@ -274,7 +294,7 @@
                     android:gravity="center"
                     android:paddingLeft="10dp"
                     android:text="Level"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -354,6 +374,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginBottom="30dp"

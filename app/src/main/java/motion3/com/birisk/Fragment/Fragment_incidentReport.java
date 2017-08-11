@@ -37,7 +37,7 @@ public class Fragment_incidentReport extends Fragment {
     private View view;
     private Vibrator vibe;
     private RadioGroup radioGroup;
-    private RadioButton rB1, rB2, rB3;
+    private RadioButton rB1;
     private Button btn_submit;
     private EditText edt_tgl_pelaporan, edt_waktu_kejadian, edt_tindaklanjut;
     Calendar calendar_kejadian = Calendar.getInstance();
@@ -53,10 +53,10 @@ public class Fragment_incidentReport extends Fragment {
         MainActivity.iv.setImageResource(R.drawable.report);
 
         radioGroup = (RadioGroup) view.findViewById(R.id.radio_grup);
-        rB1 = (RadioButton) view.findViewById(R.id.level1);
-        rB2 = (RadioButton) view.findViewById(R.id.level2);
-        rB3 = (RadioButton) view.findViewById(R.id.level3);
-        rB1.setChecked(true);
+//        rB1 = (RadioButton) view.findViewById(R.id.level1);
+//        rB2 = (RadioButton) view.findViewById(R.id.level2);
+//        rB3 = (RadioButton) view.findViewById(R.id.level3);
+//        rB1.setChecked(true);
 
         edt_tgl_pelaporan = (EditText) view.findViewById(R.id.edt_tgl_pelaporan);
         edt_waktu_kejadian = (EditText) view.findViewById(R.id.edt_wkt_kejadian);
@@ -125,35 +125,19 @@ public class Fragment_incidentReport extends Fragment {
             }
         });
 
-//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-//                if (checkedId == R.id.level1) {
-//                    Log.d("adaw", String.valueOf(checkedId));
-//                } else if (checkedId == R.id.level2) {
-//                    Log.d("wdaw", String.valueOf(checkedId));
-//                } else if (checkedId == R.id.level3) ;
-//                Log.d("andalan", String.valueOf(checkedId));
-//            }
-//        });
+
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String myFormat = "MM-dd-yyyy"; //In which you need put here
+                String myFormat = "dd-MM-yyyy"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                 Log.d("now", String.valueOf(sdf.format(calendar_kejadian.getTime())));
 
                 int selectedId = radioGroup.getCheckedRadioButtonId();
+                rB1 = (RadioButton) view.findViewById(selectedId);
 
-                if (selectedId == rB1.getId()){
-                    Log.d("1","1");
-                }else if (selectedId == rB2.getId()){
-                    Log.d("2","2");
-                }
-                else if (selectedId == rB3.getId()){
-                    Log.d("3","3");
-                }
+                Log.d("radio", String.valueOf(rB1.getText()));
 
             }
         });

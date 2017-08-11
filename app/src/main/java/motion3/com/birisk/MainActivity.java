@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import motion3.com.birisk.Fragment.FragmentAccount;
 import motion3.com.birisk.Fragment.FragmentChangePassword;
 import motion3.com.birisk.Fragment.FragmentHome;
 import motion3.com.birisk.Fragment.FragmentRiskDashboard;
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.home) {
             fragment = new FragmentHome();
         } else if (id == R.id.account) {
-            fragment = new FragmentChangePassword();
+            fragment = new FragmentAccount();
         } else if (id == R.id.account_list){
             fragment = new Fragment_accountList();
         }else if (id == R.id.r_dictionary) {

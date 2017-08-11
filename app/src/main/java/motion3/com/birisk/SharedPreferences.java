@@ -10,5 +10,9 @@ package motion3.com.birisk;
 
 public class SharedPreferences {
 
-    public static boolean baru;
+    public static final String Username = "nama";
+    public static final String userid = "userid";
+    public static final String userphone = "hape";
+    public static final String useraddress = "address";
+    public static final String userpincode = "pincode";
 }

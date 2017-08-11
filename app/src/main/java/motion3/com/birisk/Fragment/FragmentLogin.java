@@ -21,9 +21,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import motion3.com.birisk.MainActivity;
+import motion3.com.birisk.Network.APIConstant;
+import motion3.com.birisk.POJO.User;
+import motion3.com.birisk.POJO.UserInterface;
 import motion3.com.birisk.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Semmy
@@ -80,7 +89,7 @@ public class FragmentLogin extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.login_fragment,container,false);
+        view = inflater.inflate(R.layout.login_fragment, container, false);
 
         LinearLayout parent = (LinearLayout) view.findViewById(R.id.parent);
         setupUI(parent);
@@ -140,7 +149,7 @@ public class FragmentLogin extends Fragment {
             vibe.vibrate(100);
             cancel = true;
         } else if (!isPasswordValid(password)) {
-            edt_pass.setError(getString(R.string.passnull));
+            edt_pass.setError(getString(R.string.pass_false));
             vibe.vibrate(100);
             focusView = edt_pass;
             cancel = true;
@@ -151,9 +160,49 @@ public class FragmentLogin extends Fragment {
         } else {
             // TODO: doLogin
             //TODO : Sementara langsung intent
-            toMainActivity();
-//            doMOPLogin(etUsername.getText().toString(), etPassword.getText().toString());
+//            toMainActivity();
+            doLogin(username, password);
         }
+    }
+
+    private void doLogin(String username, String password) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(APIConstant.APIPARENT)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        UserInterface service = retrofit.create(UserInterface.class);
+        Call<User> call = service.getUserDetail(username, password);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response != null) {
+                        String username = response.body().getUserDetail().getUName();
+                        String userid = response.body().getUserDetail().getUId();
+                        String userphone = response.body().getUserDetail().getUPhone();
+                        String useraddress = response.body().getUserDetail().getUAddress();
+                        String userpincode = response.body().getUserDetail().getUPincode();
+
+                    prefsprivate = getActivity().getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor preEditor = prefsprivate.edit();
+                    preEditor.putString(motion3.com.birisk.SharedPreferences.Username, username);
+                    preEditor.putString(motion3.com.birisk.SharedPreferences.userid, userid);
+                    preEditor.putString(motion3.com.birisk.SharedPreferences.userphone, userphone);
+                    preEditor.putString(motion3.com.birisk.SharedPreferences.useraddress, useraddress);
+                    preEditor.putString(motion3.com.birisk.SharedPreferences.userpincode, userpincode);
+                    preEditor.commit();
+
+                    toMainActivity();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                android.util.Log.d("onFailure", t.toString());
+                Toast.makeText(getActivity(), "Terjadi Kesalahan", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     private void toMainActivity() {
@@ -162,11 +211,11 @@ public class FragmentLogin extends Fragment {
 
         Boolean firsttime = prefsprivate.getBoolean("hide", false);
 
-        if (firsttime){
+        if (firsttime) {
             Intent mainAct = new Intent(getActivity(), MainActivity.class);
             getActivity().finish();
             startActivity(mainAct);
-        }else {
+        } else {
             Bundle bundle = new Bundle();
             Fragment fragment = new FragmentChangePassword();
             fragment.setArguments(bundle);
@@ -186,7 +235,7 @@ public class FragmentLogin extends Fragment {
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 2;
     }
 
 

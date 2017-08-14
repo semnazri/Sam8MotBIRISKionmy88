@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,12 +20,19 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import motion3.com.birisk.Adapter.Account_ListADapter;
-import motion3.com.birisk.Adapter.DummyAdapter;
+import motion3.com.birisk.Adapter.AccountListAdapter;
 import motion3.com.birisk.MainActivity;
+import motion3.com.birisk.Network.APIConstant;
 import motion3.com.birisk.POJO.ACcountModel;
-import motion3.com.birisk.POJO.Dummy_model;
+import motion3.com.birisk.POJO.Record;
+import motion3.com.birisk.POJO.UserInterface;
+import motion3.com.birisk.POJO.UserList;
 import motion3.com.birisk.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Semmy on 8/3/2017.
@@ -33,9 +41,10 @@ import motion3.com.birisk.R;
 public class Fragment_accountList extends Fragment {
     View view;
     private RecyclerView rv;
-    private Account_ListADapter adapter;
+//    private Account_ListADapter adapter;
+    private AccountListAdapter adapter;
     private LinearLayoutManager lm;
-    private List<ACcountModel> list_model;
+    private List<Record> list_model;
     private EditText edt;
     private TextView.OnEditorActionListener mOnEditorAction =
             new TextView.OnEditorActionListener() {
@@ -80,18 +89,74 @@ public class Fragment_accountList extends Fragment {
         MainActivity.logo.setVisibility(View.GONE);
         LinearLayout parent = (LinearLayout) view.findViewById(R.id.parent);
         setupUI(parent);
-
-        rv = (RecyclerView) view.findViewById(R.id.rv_account);
-        list_model = getAllAccount();
-        lm = new LinearLayoutManager(getActivity());
-        adapter = new Account_ListADapter(getActivity(), list_model);
-        rv.setHasFixedSize(true);
-        rv.setLayoutManager(lm);
-//        rv.addItemDecoration(new DividerItemDecoration(getActivity()));
-        rv.setAdapter(adapter);
         edt = (EditText) view.findViewById(R.id.edt_search);
 
+        rv = (RecyclerView) view.findViewById(R.id.rv_account);
+
+
+
+
+
+
+//        list_model = getAllAccount();
+//        rv.addItemDecoration(new DividerItemDecoration(getActivity()));
+        rv.setAdapter(adapter);
+
+
+        getReallAllAccount();
+
         return view;
+    }
+
+    private void getReallAllAccount() {
+        list_model = new ArrayList<>();
+        rv.setHasFixedSize(true);
+        lm = new LinearLayoutManager(getActivity());
+        rv.setLayoutManager(lm);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(APIConstant.APIPARENT)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserInterface service = retrofit.create(UserInterface.class);
+        Call<UserList> call = service.getUserList();
+        call.enqueue(new Callback<UserList>() {
+            @Override
+            public void onResponse(Call<UserList> call, Response<UserList> response) {
+
+                int response_status = response.body().getHasMore();
+
+                Log.d("ada", String.valueOf(response_status));
+
+                if (response_status > 0){
+
+
+                    for (int i = 0; i < response.body().getRecords().size(); i++) {
+
+                        Record rec = new Record();
+                        try {
+                            String uid = response.body().getRecords().get(i).getUId();
+                            String uname = response.body().getRecords().get(i).getUName();
+
+                            rec.setUName(uname);
+                            rec.setUId(uid);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        list_model.add(rec);
+                        adapter = new AccountListAdapter(getActivity(), list_model);
+                        rv.setAdapter(adapter);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<UserList> call, Throwable t) {
+
+            }
+        });
     }
 
     private List<ACcountModel> getAllAccount() {

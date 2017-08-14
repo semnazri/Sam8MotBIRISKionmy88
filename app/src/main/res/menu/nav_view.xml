@@ -37,7 +37,7 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/r_repository"
-            android:title="Risk Repository" />
+            android:title="Knowladge Repository" />
         </group>
     <group
         android:id="@+id/enam"

@@ -12,4 +12,7 @@ public interface UserInterface {
 
     @GET("user-details.php")
     Call<User> getUserDetail(@Query("e") String e,@Query("p") String p);
+
+    @GET("users.php")
+    Call<UserList>getUserList();
 }

@@ -93,16 +93,6 @@ public class Fragment_accountList extends Fragment {
 
         rv = (RecyclerView) view.findViewById(R.id.rv_account);
 
-
-
-
-
-
-//        list_model = getAllAccount();
-//        rv.addItemDecoration(new DividerItemDecoration(getActivity()));
-        rv.setAdapter(adapter);
-
-
         getReallAllAccount();
 
         return view;

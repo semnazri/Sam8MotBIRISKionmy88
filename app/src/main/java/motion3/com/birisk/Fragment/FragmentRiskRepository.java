@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,10 +20,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import motion3.com.birisk.Adapter.AccountListAdapter;
 import motion3.com.birisk.Adapter.DummyAdapter;
+import motion3.com.birisk.Adapter.RiskAdapter;
 import motion3.com.birisk.MainActivity;
+import motion3.com.birisk.Network.APIConstant;
 import motion3.com.birisk.POJO.Dummy_model;
+import motion3.com.birisk.POJO.RIskRecord;
+import motion3.com.birisk.POJO.Record;
+import motion3.com.birisk.POJO.Risk;
+import motion3.com.birisk.POJO.RiskInterface;
 import motion3.com.birisk.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Semmy
@@ -35,9 +48,10 @@ import motion3.com.birisk.R;
 public class FragmentRiskRepository extends Fragment {
     View view;
     private RecyclerView rv;
-    private DummyAdapter adapter;
+    private RiskAdapter adapter;
     private LinearLayoutManager lm;
-    private List<Dummy_model> list_model;
+//    private List<Dummy_model> list_model;
+    private List<RIskRecord> list_model;
     private EditText edt;
     private TextView.OnEditorActionListener mOnEditorAction =
             new TextView.OnEditorActionListener() {
@@ -95,16 +109,74 @@ public class FragmentRiskRepository extends Fragment {
         setupUI(parent);
 
         rv = (RecyclerView) view.findViewById(R.id.rv_download);
-        list_model = getAllDownload();
-        lm = new LinearLayoutManager(getActivity());
-        adapter = new DummyAdapter(getActivity(), list_model);
-        rv.setHasFixedSize(true);
-        rv.setLayoutManager(lm);
-//        rv.addItemDecoration(new DividerItemDecoration(getActivity()));
-        rv.setAdapter(adapter);
+//        list_model = getAllDownload();
+//        lm = new LinearLayoutManager(getActivity());
+////        adapter = new DummyAdapter(getActivity(), list_model);
+//        rv.setHasFixedSize(true);
+//        rv.setLayoutManager(lm);
+////        rv.addItemDecoration(new DividerItemDecoration(getActivity()));
+//        rv.setAdapter(adapter);
         edt = (EditText) view.findViewById(R.id.edt_search);
 
+        loadrepository();
+
         return view;
+    }
+
+    private void loadrepository() {
+
+        list_model = new ArrayList<>();
+        rv.setHasFixedSize(true);
+        lm = new LinearLayoutManager(getActivity());
+        rv.setLayoutManager(lm);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(APIConstant.APIPARENT)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RiskInterface service = retrofit.create(RiskInterface.class);
+        Call<Risk> call = service.getRiskRepository();
+        call.enqueue(new Callback<Risk>() {
+            @Override
+            public void onResponse(Call<Risk> call, Response<Risk> response) {
+
+                int response_status = response.body().getHasMore();
+
+                Log.d("ada", String.valueOf(response_status));
+
+                if (response_status > 0){
+                    for (int i = 0; i < response.body().getRecords().size(); i++) {
+
+                        RIskRecord rec = new RIskRecord();
+                        try {
+                            String desc = response.body().getRecords().get(i).getRDesc();
+                            String id = response.body().getRecords().get(i).getRId();
+                            String name = response.body().getRecords().get(i).getRName();
+                            String url = response.body().getRecords().get(i).getRUrl();
+
+                            rec.setRDesc(desc);
+                            rec.setRId(id);
+                            rec.setRName(name);
+                            rec.setRUrl(url);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        list_model.add(rec);
+                        adapter = new RiskAdapter(getActivity(), list_model);
+                        rv.setAdapter(adapter);
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Risk> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private List<Dummy_model> getAllDownload() {

@@ -10,26 +10,25 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import motion3.com.birisk.POJO.Dummy_model;
+import motion3.com.birisk.POJO.RIskRecord;
 import motion3.com.birisk.R;
 import motion3.com.birisk.ViewHolder.DummyViewHolder;
 
 /**
- * Created by Semmy
- * mr.shanky08@gmail.com on 7/9/17.
- *
- * @copyright 2016
- * PT.Bisnis Indonesia Sibertama
+ * Created by Ricky on 8/14/17.
  */
 
-public class DummyAdapter extends RecyclerView.Adapter<DummyViewHolder>{
-    private Context mContext;
-    private List<Dummy_model> mValues;
+public class RiskAdapter extends RecyclerView.Adapter<DummyViewHolder> {
 
-    public DummyAdapter(Context context, List<Dummy_model> items) {
+    private Context mContext;
+    private List<RIskRecord> mValues;
+
+    public RiskAdapter(Context context, List<RIskRecord> items) {
         mContext = context;
         mValues = items;
+
     }
+
     @Override
     public DummyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_risk_repo, parent, false);
@@ -46,8 +45,8 @@ public class DummyAdapter extends RecyclerView.Adapter<DummyViewHolder>{
 
     @Override
     public void onBindViewHolder(DummyViewHolder holder, int position) {
-        holder.filename.setText(mValues.get(position).getFile_name());
-        holder.file_downloadname.setText(mValues.get(position).getKeterangan());
+        holder.filename.setText(mValues.get(position).getRName());
+        holder.file_downloadname.setText(mValues.get(position).getRDesc());
     }
 
     @Override

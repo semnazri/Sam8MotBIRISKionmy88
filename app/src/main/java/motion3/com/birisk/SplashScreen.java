@@ -9,8 +9,7 @@ import android.view.WindowManager;
  * Created by Semmy
  * mr.shanky08@gmail.com on 5/25/17.
  *
- * @copyright 2016
- * PT.Bisnis Indonesia Sibertama
+ * @copyright 2017
  */
 
 public class SplashScreen extends Activity {

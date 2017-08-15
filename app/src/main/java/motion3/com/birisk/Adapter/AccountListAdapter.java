@@ -16,8 +16,8 @@ import motion3.com.birisk.ViewHolder.AccountListViewHolder;
  * Created by Semmy
  * mr.shanky08@gmail.com on 8/14/17.
  *
- * @copyright 2016
- * PT.Bisnis Indonesia Sibertama
+ * @copyright 2017
+ *
  */
 
 public class AccountListAdapter extends RecyclerView.Adapter<AccountListViewHolder> {

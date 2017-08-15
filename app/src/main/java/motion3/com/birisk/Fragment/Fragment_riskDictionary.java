@@ -11,8 +11,6 @@ import motion3.com.birisk.MainActivity;
 import motion3.com.birisk.Network.APIConstant;
 import motion3.com.birisk.POJO.Dictionary;
 import motion3.com.birisk.POJO.DictionaryINterface;
-import motion3.com.birisk.POJO.Risk;
-import motion3.com.birisk.POJO.RiskInterface;
 import motion3.com.birisk.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,8 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Semmy
  * mr.shanky08@gmail.com on 6/21/17.
  *
- * @copyright 2016
- * PT.Bisnis Indonesia Sibertama
+ * @copyright 2017
  */
 
 public class Fragment_riskDictionary extends Fragment {

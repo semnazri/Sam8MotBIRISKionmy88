@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by Ricky on 8/14/17.
+ * Created by Semmy on 8/14/17.
  */
 
 public class Dictionary {

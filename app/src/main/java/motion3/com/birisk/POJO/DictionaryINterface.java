@@ -4,7 +4,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 /**
- * Created by Ricky on 8/14/17.
+ * Created by Semmy on 8/14/17.
  */
 
 public interface DictionaryINterface {

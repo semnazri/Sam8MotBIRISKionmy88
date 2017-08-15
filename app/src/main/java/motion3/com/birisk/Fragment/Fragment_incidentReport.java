@@ -45,8 +45,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Semmy
  * mr.shanky08@gmail.com on 6/21/17.
  *
- * @copyright 2016
- * PT.Bisnis Indonesia Sibertama
+ * @copyright 2017
  */
 
 public class Fragment_incidentReport extends Fragment {

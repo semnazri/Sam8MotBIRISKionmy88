@@ -18,8 +18,7 @@ import motion3.com.birisk.ViewHolder.DummyViewHolder;
  * Created by Semmy
  * mr.shanky08@gmail.com on 7/9/17.
  *
- * @copyright 2016
- * PT.Bisnis Indonesia Sibertama
+ * @copyright 2017
  */
 
 public class DummyAdapter extends RecyclerView.Adapter<DummyViewHolder>{

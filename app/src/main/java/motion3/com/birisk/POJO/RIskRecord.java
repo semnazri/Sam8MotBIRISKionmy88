@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Ricky on 8/14/17.
+ * Created by Semmy on 8/14/17.
  */
 
 public class RIskRecord {

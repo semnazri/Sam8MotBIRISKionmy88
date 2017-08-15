@@ -14,7 +14,7 @@ import motion3.com.birisk.R;
 import motion3.com.birisk.ViewHolder.DummyViewHolder;
 
 /**
- * Created by Ricky on 8/14/17.
+ * Created by Semmy on 8/14/17.
  */
 
 public class RiskAdapter extends RecyclerView.Adapter<DummyViewHolder> {

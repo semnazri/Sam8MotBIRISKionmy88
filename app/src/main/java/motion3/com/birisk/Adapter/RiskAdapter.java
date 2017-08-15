@@ -1,10 +1,15 @@
 package motion3.com.birisk.Adapter;
 
+import android.app.DownloadManager;
 import android.content.Context;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -64,6 +69,18 @@ public class RiskAdapter extends RecyclerView.Adapter<DummyViewHolder> {
 //                Toast.makeText(mContext, dlink, Toast.LENGTH_SHORT).show();
                 String fname = holder.filename.getText().toString();
 //                listener.onClick(dlink, fname);
+
+                Toast.makeText(mContext, "Your download has been started", Toast.LENGTH_SHORT).show();
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(dlink));
+                request.setTitle(fname);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    request.allowScanningByMediaScanner();
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                }
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fname);
+
+                DownloadManager manager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
+                manager.enqueue(request);
 
             }
         });

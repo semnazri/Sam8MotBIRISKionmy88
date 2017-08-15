@@ -41,6 +41,7 @@ public class FragmentChangePassword extends Fragment {
     private Button btn_submit;
     private Vibrator vibe;
     private SharedPreferences prefsprivate;
+    String nama,usrid,phone,address,pincode;
     private TextView.OnEditorActionListener mOnEditorAction =
             new TextView.OnEditorActionListener() {
                 @Override
@@ -95,6 +96,13 @@ public class FragmentChangePassword extends Fragment {
         btn_submit = (Button) view.findViewById(R.id.btn_user);
         edt_new_retypePass.setOnEditorActionListener(mOnEditorAction);
         vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
+        prefsprivate = getActivity().getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
+        nama = prefsprivate.getString(motion3.com.birisk.SharedPreferences.Username, "nama");
+        usrid = prefsprivate.getString(motion3.com.birisk.SharedPreferences.userid, "userid");
+
+        tv_name.setText(nama);
+        tv_email.setText(usrid);
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -26,7 +26,7 @@
             android:layout_height="90dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:src="@drawable/ic_risk_repository" />
+            android:src="@drawable/knowladge_rpo" />
 
         <ImageView
             android:id="@+id/risk_dashbaord"
@@ -34,7 +34,7 @@
             android:layout_height="90dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:src="@drawable/knowladge_rpo" />
+            android:src="@drawable/ic_risk_dashboard" />
 
         <ImageView
             android:id="@+id/incident_report"

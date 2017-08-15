@@ -1,10 +1,15 @@
 package motion3.com.birisk;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,8 +28,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import motion3.com.birisk.Fragment.FragmentAccount;
-import motion3.com.birisk.Fragment.FragmentChangePassword;
 import motion3.com.birisk.Fragment.FragmentHome;
 import motion3.com.birisk.Fragment.FragmentRiskDashboard;
 import motion3.com.birisk.Fragment.FragmentRiskRepository;
@@ -34,6 +39,7 @@ import motion3.com.birisk.Fragment.Fragment_riskDictionary;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int PERMISSION_REQUEST_CODE = 1;
     public static AppCompatActivity activity;
     public static FragmentManager manager;
     public static Context context;
@@ -44,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar mToolbar;
     NavigationView navigationView;
     FragmentManager fragmentManager;
+    private SweetAlertDialog mDialog;
+    String url, title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,9 +141,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment = new FragmentHome();
         } else if (id == R.id.account) {
             fragment = new FragmentAccount();
-        } else if (id == R.id.account_list){
+        } else if (id == R.id.account_list) {
             fragment = new Fragment_accountList();
-        }else if (id == R.id.r_dictionary) {
+        } else if (id == R.id.r_dictionary) {
             fragment = new Fragment_riskDictionary();
         } else if (id == R.id.r_repository) {
             fragment = new FragmentRiskRepository();
@@ -191,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
             Log.d("ada disini ya", "drower close");
-        } else if (backStackCount >= 2){
+        } else if (backStackCount >= 2) {
             FragmentManager.BackStackEntry entry = getSupportFragmentManager().getBackStackEntryAt(
                     1);
             getSupportFragmentManager().popBackStack(entry.getId(),
@@ -211,16 +219,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //
 //        }
         else
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage("Do you want to close this application?")
-                .setPositiveButton("Yes",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int wich) {
-                                finish();
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setMessage("Do you want to close this application?")
+                    .setPositiveButton("Yes",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int wich) {
+                                    finish();
 
-                            }
-                        }).setNegativeButton("No", null).show();
+                                }
+                            }).setNegativeButton("No", null).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String[] permissions,int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 0:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Download();
+                }
+
+        }
+    }
+
+    public void setData(String url, String title) {
+        this.url = url;
+        this.title = title;
+    }
+    public void Download() {
+        Toast.makeText(this, "Your download has been started", Toast.LENGTH_SHORT).show();
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+        request.setTitle(title);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            request.allowScanningByMediaScanner();
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        }
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, title);
+
+        DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        manager.enqueue(request);
     }
 }

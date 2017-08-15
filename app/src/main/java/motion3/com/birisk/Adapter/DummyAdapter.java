@@ -48,6 +48,7 @@ public class DummyAdapter extends RecyclerView.Adapter<DummyViewHolder>{
     public void onBindViewHolder(DummyViewHolder holder, int position) {
         holder.filename.setText(mValues.get(position).getFile_name());
         holder.file_downloadname.setText(mValues.get(position).getKeterangan());
+        holder.downloadlink.setText(mValues.get(position).getKeterangan());
     }
 
     @Override

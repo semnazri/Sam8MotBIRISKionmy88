@@ -22,6 +22,8 @@ public class RIskRecord {
     @Expose
     private String rUrl;
 
+    public RIskRecord(){}
+
     public String getRId() {
         return rId;
     }

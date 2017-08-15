@@ -15,12 +15,13 @@ import motion3.com.birisk.R;
  */
 
 public class DummyViewHolder extends RecyclerView.ViewHolder {
-    public TextView filename, file_downloadname;
+    public TextView filename, file_downloadname, downloadlink;
 
     public DummyViewHolder(View itemView) {
         super(itemView);
         filename = (TextView) itemView.findViewById(R.id.file_name);
         file_downloadname = (TextView) itemView.findViewById(R.id.file_downloadname);
+        downloadlink = (TextView) itemView.findViewById(R.id.download_link);
 
     }
 }

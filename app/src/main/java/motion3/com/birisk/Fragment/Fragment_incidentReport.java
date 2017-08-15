@@ -6,7 +6,6 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -21,23 +20,19 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import motion3.com.birisk.MainActivity;
 import motion3.com.birisk.Network.APIConstant;
-import motion3.com.birisk.POJO.Report;
 import motion3.com.birisk.POJO.ReportInterface;
-import motion3.com.birisk.POJO.User;
-import motion3.com.birisk.POJO.UserInterface;
 import motion3.com.birisk.R;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -61,6 +56,7 @@ public class Fragment_incidentReport extends Fragment {
     private RadioGroup radioGroup;
     private RadioButton rB1;
     private Button btn_submit;
+    private SweetAlertDialog mDialog;
     private EditText edt_tgl_pelaporan, edt_waktu_kejadian, edt_tindaklanjut, edtSubject, edt_catatan, edt_lokasi;
     Calendar calendar_kejadian = Calendar.getInstance();
     Calendar calendar_tindaklanjut = Calendar.getInstance();
@@ -282,6 +278,8 @@ public class Fragment_incidentReport extends Fragment {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d("response",response.toString());
 
+                getDialog("Laporan kejadian berhasil dikirim").show();
+
             }
 
             @Override
@@ -307,5 +305,23 @@ public class Fragment_incidentReport extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         edt_tgl_pelaporan.setText(sdf.format(calendar_kejadian.getTime()));
+    }
+
+    private SweetAlertDialog getDialog(String s) {
+        mDialog = new SweetAlertDialog(getActivity());
+        mDialog.setTitleText("BIRISK");
+        mDialog.setContentText(s);
+        mDialog.setConfirmText("Close");
+        mDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+        mDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                getFragmentManager().popBackStack();
+                mDialog.dismiss();
+            }
+        });
+
+
+        return mDialog;
     }
 }

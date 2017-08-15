@@ -1,8 +1,12 @@
 package motion3.com.birisk.Fragment;
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,18 +20,18 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import motion3.com.birisk.Adapter.AccountListAdapter;
-import motion3.com.birisk.Adapter.DummyAdapter;
 import motion3.com.birisk.Adapter.RiskAdapter;
 import motion3.com.birisk.MainActivity;
 import motion3.com.birisk.Network.APIConstant;
+import motion3.com.birisk.Network.ConnectionDetector;
+import motion3.com.birisk.Network.DownloadListener;
 import motion3.com.birisk.POJO.Dummy_model;
 import motion3.com.birisk.POJO.RIskRecord;
-import motion3.com.birisk.POJO.Record;
 import motion3.com.birisk.POJO.Risk;
 import motion3.com.birisk.POJO.RiskInterface;
 import motion3.com.birisk.R;
@@ -45,13 +49,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * PT.Bisnis Indonesia Sibertama
  */
 
-public class FragmentRiskRepository extends Fragment {
+public class FragmentRiskRepository extends Fragment implements DownloadListener {
     View view;
+    DownloadListener listener;
     private RecyclerView rv;
     private RiskAdapter adapter;
     private LinearLayoutManager lm;
-//    private List<Dummy_model> list_model;
+    //    private List<Dummy_model> list_model;
     private List<RIskRecord> list_model;
+    private ConnectionDetector cd;
+    private Boolean isInternetPresent = false;
     private EditText edt;
     private TextView.OnEditorActionListener mOnEditorAction =
             new TextView.OnEditorActionListener() {
@@ -85,6 +92,12 @@ public class FragmentRiskRepository extends Fragment {
                 }
             });
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        cd = new ConnectionDetector(getActivity());
     }
 
 //    private void search() {
@@ -145,7 +158,7 @@ public class FragmentRiskRepository extends Fragment {
 
                 Log.d("ada", String.valueOf(response_status));
 
-                if (response_status > 0){
+                if (response_status > 0) {
                     for (int i = 0; i < response.body().getRecords().size(); i++) {
 
                         RIskRecord rec = new RIskRecord();
@@ -163,6 +176,7 @@ public class FragmentRiskRepository extends Fragment {
                             e.printStackTrace();
                         }
                         list_model.add(rec);
+//                        adapter = new RiskAdapter(getActivity(), list_model, this);
                         adapter = new RiskAdapter(getActivity(), list_model);
                         rv.setAdapter(adapter);
                     }
@@ -190,5 +204,21 @@ public class FragmentRiskRepository extends Fragment {
 
 
         return allNews;
+    }
+
+    @Override
+    public void onClick(String url, String title) {
+        isInternetPresent = cd.isConnectingToInternet();
+        if (isInternetPresent) {
+            ((MainActivity) getActivity()).setData(url, title);
+            Log.d("url donlot", url);
+            if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                ((MainActivity) getActivity()).Download();
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            }
+        } else if (isInternetPresent.equals(false)) {
+            Toast.makeText(getActivity(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+        }
     }
 }

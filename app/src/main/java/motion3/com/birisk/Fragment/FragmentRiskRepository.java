@@ -46,7 +46,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * mr.shanky08@gmail.com on 6/22/17.
  *
  * @copyright 2017
- *
  */
 
 public class FragmentRiskRepository extends Fragment implements DownloadListener {
@@ -59,6 +58,7 @@ public class FragmentRiskRepository extends Fragment implements DownloadListener
     private List<RIskRecord> list_model;
     private ConnectionDetector cd;
     private Boolean isInternetPresent = false;
+
     private EditText edt;
     private TextView.OnEditorActionListener mOnEditorAction =
             new TextView.OnEditorActionListener() {
@@ -133,8 +133,12 @@ public class FragmentRiskRepository extends Fragment implements DownloadListener
 
         loadrepository();
 
+
         return view;
     }
+
+
+
 
     private void loadrepository() {
 
@@ -176,8 +180,9 @@ public class FragmentRiskRepository extends Fragment implements DownloadListener
                             e.printStackTrace();
                         }
                         list_model.add(rec);
-//                        adapter = new RiskAdapter(getActivity(), list_model, this);
-                        adapter = new RiskAdapter(getActivity(), list_model);
+
+//                        adapter = new RiskAdapter(getActivity(), list_model);
+                        setadapter();
                         rv.setAdapter(adapter);
                     }
 
@@ -193,17 +198,9 @@ public class FragmentRiskRepository extends Fragment implements DownloadListener
 
     }
 
-    private List<Dummy_model> getAllDownload() {
-        List<Dummy_model> allNews = new ArrayList<Dummy_model>();
-        allNews.add(new Dummy_model(1, "Pertolongan Pertama pada kebakaran", "cara menanggulangi kebakaran kecil"));
-        allNews.add(new Dummy_model(2, "Pertolongan Pertama pada kebakaran", "cara menanggulangi kebakaran sedang"));
-        allNews.add(new Dummy_model(3, "Pertolongan Pertama pada kebakaran", "cara menanggulangi kebakaran besar"));
-        allNews.add(new Dummy_model(4, "Pertolongan Pertama pada Bencana Gempa", "Panduan Prosedur Sigap Bencana Gempa"));
-        allNews.add(new Dummy_model(5, "Pertolongan Pertama pada Pemadaman Listrik", "Panduan dummy"));
-        allNews.add(new Dummy_model(6, "Pertolongan Pertama pada Pemadaman Api", "Panduan dummy"));
 
-
-        return allNews;
+    private void setadapter() {
+        adapter = new RiskAdapter(getActivity(), list_model, this);
     }
 
     @Override

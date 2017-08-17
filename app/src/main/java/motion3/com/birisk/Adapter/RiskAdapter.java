@@ -28,10 +28,10 @@ public class RiskAdapter extends RecyclerView.Adapter<DummyViewHolder> {
     private List<RIskRecord> mValues;
     private DownloadListener listener;
 
-    public RiskAdapter(Context context, List<RIskRecord> items) {
+    public RiskAdapter(Context context, List<RIskRecord> items,DownloadListener listener) {
         mContext = context;
         mValues = items;
-//        this.listener = listener;
+        this.listener = listener;
 
     }
 

@@ -85,7 +85,7 @@ public class FragmentChangePassword extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_change_password, container, false);
         LinearLayout parent = (LinearLayout) view.findViewById(R.id.parent);
-        setupUI(parent);
+//        setupUI(parent);
 
         tv_name = (TextView) view.findViewById(R.id.person_name);
         tv_email = (TextView) view.findViewById(R.id.person_email);

@@ -181,8 +181,7 @@ public class FragmentRiskRepository extends Fragment implements DownloadListener
                         }
                         list_model.add(rec);
 
-//                        adapter = new RiskAdapter(getActivity(), list_model);
-                        setadapter();
+                        adapter = new RiskAdapter(getActivity(), list_model, FragmentRiskRepository.this);
                         rv.setAdapter(adapter);
                     }
 
@@ -198,10 +197,6 @@ public class FragmentRiskRepository extends Fragment implements DownloadListener
 
     }
 
-
-    private void setadapter() {
-        adapter = new RiskAdapter(getActivity(), list_model, this);
-    }
 
     @Override
     public void onClick(String url, String title) {

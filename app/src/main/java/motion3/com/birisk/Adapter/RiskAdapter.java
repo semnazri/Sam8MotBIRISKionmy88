@@ -68,19 +68,19 @@ public class RiskAdapter extends RecyclerView.Adapter<DummyViewHolder> {
                 String dlink = holder.downloadlink.getText().toString();
 //                Toast.makeText(mContext, dlink, Toast.LENGTH_SHORT).show();
                 String fname = holder.filename.getText().toString();
-//                listener.onClick(dlink, fname);
+                listener.onClick(dlink, fname);
 
                 Toast.makeText(mContext, "Your download has been started", Toast.LENGTH_SHORT).show();
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(dlink));
-                request.setTitle(fname);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    request.allowScanningByMediaScanner();
-                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                }
-                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fname);
-
-                DownloadManager manager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-                manager.enqueue(request);
+//                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(dlink));
+//                request.setTitle(fname);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//                    request.allowScanningByMediaScanner();
+//                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+//                }
+//                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fname);
+//
+//                DownloadManager manager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
+//                manager.enqueue(request);
 
             }
         });

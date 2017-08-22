@@ -15,12 +15,9 @@ public class UserDetail {
     @SerializedName("u_id")
     @Expose
     private String uId;
-    @SerializedName("u_phone")
+    @SerializedName("u_title")
     @Expose
-    private String uPhone;
-    @SerializedName("u_address")
-    @Expose
-    private String uAddress;
+    private String uTitle;
     @SerializedName("u_pincode")
     @Expose
     private String uPincode;
@@ -41,20 +38,12 @@ public class UserDetail {
         this.uId = uId;
     }
 
-    public String getUPhone() {
-        return uPhone;
+    public String getUTitle() {
+        return uTitle;
     }
 
-    public void setUPhone(String uPhone) {
-        this.uPhone = uPhone;
-    }
-
-    public String getUAddress() {
-        return uAddress;
-    }
-
-    public void setUAddress(String uAddress) {
-        this.uAddress = uAddress;
+    public void setUTitle(String uTitle) {
+        this.uTitle = uTitle;
     }
 
     public String getUPincode() {

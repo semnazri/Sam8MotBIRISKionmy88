@@ -32,9 +32,10 @@ import java.util.Locale;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import motion3.com.birisk.MainActivity;
 import motion3.com.birisk.Network.APIConstant;
+import motion3.com.birisk.POJO.IncidentReport;
+import motion3.com.birisk.POJO.IncidentReportJSON;
 import motion3.com.birisk.POJO.ReportInterface;
 import motion3.com.birisk.R;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -120,6 +121,7 @@ public class Fragment_incidentReport extends Fragment {
 
         btn_submit = (Button) view.findViewById(R.id.btn_submit);
 
+
         final DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -188,7 +190,7 @@ public class Fragment_incidentReport extends Fragment {
             public void onClick(View v) {
                 String myFormat = "dd-MM-yyyy"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-                Log.d("now", String.valueOf(sdf.format(calendar_kejadian.getTime())));
+//                Log.d("now", String.valueOf(sdf.format(calendar_kejadian.getTime())));
 
                 int selectedId = radioGroup.getCheckedRadioButtonId();
                 rB1 = (RadioButton) view.findViewById(selectedId);
@@ -237,52 +239,63 @@ public class Fragment_incidentReport extends Fragment {
             focusView = edt_lokasi;
             vibe.vibrate(100);
             cancel = true;
-        }else if (TextUtils.isEmpty(tgl_kjadian)){
+        } else if (TextUtils.isEmpty(tgl_kjadian)) {
             edt_tgl_pelaporan.setError("Harap tentukan tanggal kejadian");
             focusView = edt_tgl_pelaporan;
             vibe.vibrate(100);
             cancel = true;
-        }else if (TextUtils.isEmpty(wkt_kejadian)){
-            edt_waktu_kejadian.setError("Harap tentukan waktu kejadian" );
+        } else if (TextUtils.isEmpty(wkt_kejadian)) {
+            edt_waktu_kejadian.setError("Harap tentukan waktu kejadian");
             focusView = edt_waktu_kejadian;
             vibe.vibrate(100);
             cancel = true;
-        }else if (TextUtils.isEmpty(wkt_tndk_lnjt)){
+        } else if (TextUtils.isEmpty(wkt_tndk_lnjt)) {
             edt_tindaklanjut.setError("Harap tentukan waktu tindaklanjut");
             focusView = edt_tindaklanjut;
             vibe.vibrate(100);
             cancel = true;
         }
 
-        if (cancel){
+        if (cancel) {
             focusView.requestFocus();
-        }
-        else {
-            sendReport(subject,catatatan,lokasi,tgl_kjadian,wkt_kejadian,wkt_tndk_lnjt,level);
+        } else {
+
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat curent_date = new SimpleDateFormat("dd-MM-yyyy");
+            String now = curent_date.format(c.getTime());
+
+            sendReport(subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian, wkt_tndk_lnjt, level);
         }
 
 
     }
 
-    private void sendReport(String subject, String catatatan, String lokasi, String tgl_kjadian, String wkt_kejadian, String wkt_tndk_lnjt, String level) {
+    private void sendReport(String subject, String catatatan, String lokasi, String now, String tgl_kjadian, String wkt_kejadian, String wkt_tndk_lnjt, String level) {
 //        Toast.makeText(getActivity(), "Ngga kosong hore", Toast.LENGTH_SHORT).show();
+        getDialogmuter().show();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(APIConstant.APIPARENT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ReportInterface service = retrofit.create(ReportInterface.class);
-        Call<ResponseBody> call = service.sendReport("Subject:"+subject+ "Catatan:"+catatatan);
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<IncidentReport> call = service.sendReport(new IncidentReportJSON(subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian));
+        call.enqueue(new Callback<IncidentReport>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d("response",response.toString());
+            public void onResponse(Call<IncidentReport> call, Response<IncidentReport> response) {
+                Log.d("response", response.toString());
 
-                getDialog("Laporan kejadian berhasil dikirim").show();
-
+                if (response.body().getSuccess() == true) {
+                    mDialog.dismissWithAnimation();
+                    getDialog("Laporan kejadian berhasil dikirim").show();
+                } else {
+                    mDialog.dismissWithAnimation();
+                    getDialogError("Terjadi Kesalahan, silakan Ulang kembali").show();
+                }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<IncidentReport> call, Throwable t) {
 
             }
         });
@@ -291,7 +304,7 @@ public class Fragment_incidentReport extends Fragment {
 
 
     private void updateLabelTindakLanjut() {
-        String myFormat = "MM-dd-yyyy"; //In which you need put here
+        String myFormat = "dd-MM-yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         edt_tindaklanjut.setText(sdf.format(calendar_tindaklanjut.getTime()));
@@ -300,7 +313,7 @@ public class Fragment_incidentReport extends Fragment {
 
     private void updateLabelpelaporan() {
 
-        String myFormat = "MM-dd-yyyy"; //In which you need put here
+        String myFormat = "dd-MM-yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         edt_tgl_pelaporan.setText(sdf.format(calendar_kejadian.getTime()));
@@ -321,6 +334,33 @@ public class Fragment_incidentReport extends Fragment {
         });
 
 
+        return mDialog;
+    }
+
+    private SweetAlertDialog getDialogError(String s) {
+        mDialog = new SweetAlertDialog(getActivity());
+        mDialog.setTitleText("BIRISK");
+        mDialog.setContentText(s);
+        mDialog.setConfirmText("Close");
+        mDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+        mDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                mDialog.dismiss();
+            }
+        });
+
+
+        return mDialog;
+    }
+    private SweetAlertDialog getDialogmuter() {
+        mDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        mDialog.getProgressHelper()
+                .setBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        mDialog.getProgressHelper()
+                .setRimColor(getResources().getColor(R.color.white));
+        mDialog.setTitleText("Loading...");
+        mDialog.setCancelable(false);
         return mDialog;
     }
 }

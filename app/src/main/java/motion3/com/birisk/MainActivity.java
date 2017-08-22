@@ -5,6 +5,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -28,7 +29,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import motion3.com.birisk.Fragment.FragmentAccount;
 import motion3.com.birisk.Fragment.FragmentHome;
 import motion3.com.birisk.Fragment.FragmentRiskDashboard;
@@ -39,7 +39,6 @@ import motion3.com.birisk.Fragment.Fragment_riskDictionary;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final int PERMISSION_REQUEST_CODE = 1;
     public static AppCompatActivity activity;
     public static FragmentManager manager;
     public static Context context;
@@ -50,8 +49,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar mToolbar;
     NavigationView navigationView;
     FragmentManager fragmentManager;
-    private SweetAlertDialog mDialog;
-    String url, title;
+    String url, title, pincode;
+    private SharedPreferences prefsprivate;
+    public static final String PREFS_PRIVATE = "PREFS_PRIVATE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +60,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splasch_screen);
         setContentView(R.layout.activity_main);
-
-        context = getApplicationContext();
-        activity = MainActivity.this;
-        manager = getSupportFragmentManager();
 
         context = getApplicationContext();
         activity = MainActivity.this;
@@ -82,6 +78,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MainActivity.activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         MainActivity.toggle.syncState();
 
+        prefsprivate = getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
+        pincode = prefsprivate.getString(SharedPreference.userpincode,"kosong");
+
+
         toggle.setDrawerIndicatorEnabled(false);
         toggle.setHomeAsUpIndicator(R.drawable.burger_24dp);
         toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
@@ -98,6 +98,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mDrawerLayout.setDrawerListener(toggle);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+
+
+        if (pincode.equals("2")){
+            Log.d("ada",pincode);
+            Menu menuNav = navigationView.getMenu();
+            MenuItem hide = menuNav.findItem(R.id.account_list);
+            hide.setVisible(false);
+        }else if (pincode.equals("1") ){
+            Log.d("ada2",pincode);
+            Menu menuNav = navigationView.getMenu();
+            MenuItem hide = menuNav.findItem(R.id.account_list);
+            hide.setVisible(true);
+        }else {
+            Log.d("else","ada");
+        }
+
+
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
         onNavigationItemSelected(navigationView.getMenu().getItem(0));
@@ -135,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         int id = item.getItemId();
         Fragment fragment = null;
+
 
 
         if (id == R.id.home) {
@@ -233,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,String[] permissions,int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case 0:
@@ -248,6 +267,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.url = url;
         this.title = title;
     }
+
     public void Download() {
         Toast.makeText(this, "Your download has been started", Toast.LENGTH_SHORT).show();
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));

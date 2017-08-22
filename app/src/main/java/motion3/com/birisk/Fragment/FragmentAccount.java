@@ -2,7 +2,6 @@ package motion3.com.birisk.Fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -23,6 +22,7 @@ import android.widget.TextView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import motion3.com.birisk.MainActivity;
 import motion3.com.birisk.R;
+import motion3.com.birisk.SharedPreference;
 
 /**
  * Created by Semmy on 8/12/2017.
@@ -46,7 +46,7 @@ public class FragmentAccount extends Fragment {
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_GO || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
 //                        prefsprivate = getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
-//                        SharedPreferences.Editor prefsprivateEditor = prefsprivate.edit();
+//                        SharedPreference.Editor prefsprivateEditor = prefsprivate.edit();
 //                        prefsprivateEditor.putString(WKNDConstant.USERNAME, etUsername.getText().toString());
 //                        prefsprivateEditor.commit();
                         validasi();
@@ -101,8 +101,8 @@ public class FragmentAccount extends Fragment {
         vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
         prefsprivate = getActivity().getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
-        nama = prefsprivate.getString(motion3.com.birisk.SharedPreferences.Username, "nama");
-        usrid = prefsprivate.getString(motion3.com.birisk.SharedPreferences.userid, "userid");
+        nama = prefsprivate.getString(SharedPreference.Username, "nama");
+        usrid = prefsprivate.getString(SharedPreference.userid, "userid");
 
         tv_name.setText(nama);
         tv_email.setText(usrid);

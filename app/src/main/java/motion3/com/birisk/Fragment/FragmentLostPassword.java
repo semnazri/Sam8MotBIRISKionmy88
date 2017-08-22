@@ -38,7 +38,7 @@ public class FragmentLostPassword extends Fragment {
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_GO || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
 //                        prefsprivate = getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
-//                        SharedPreferences.Editor prefsprivateEditor = prefsprivate.edit();
+//                        SharedPreference.Editor prefsprivateEditor = prefsprivate.edit();
 //                        prefsprivateEditor.putString(WKNDConstant.USERNAME, etUsername.getText().toString());
 //                        prefsprivateEditor.commit();
                         attemptChange();

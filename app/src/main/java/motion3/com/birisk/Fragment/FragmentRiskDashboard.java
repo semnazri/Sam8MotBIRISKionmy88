@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import motion3.com.birisk.MainActivity;
@@ -28,6 +29,7 @@ public class FragmentRiskDashboard extends Fragment {
     private String url3 = "http://commfiles.com/bayris/sandbox/dashboard/index.html";
     private ImageView imageview;
     private WebView webView;
+    private Button btn_pie,btn_wide;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +38,22 @@ public class FragmentRiskDashboard extends Fragment {
         MainActivity.iv.setVisibility(View.VISIBLE);
         MainActivity.iv.setImageResource(R.drawable.risk_dashboard);
         MainActivity.logo.setVisibility(View.GONE);
+        btn_pie = (Button) view.findViewById(R.id.btn_pie);
+        btn_wide = (Button) view.findViewById(R.id.btn_wide);
+
+        btn_pie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                webView.loadUrl(url);
+            }
+        });
+
+        btn_wide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                webView.loadUrl(url2);
+            }
+        });
 //        imageview = (ImageView) view.findViewById(R.id.img_pie);
 //        Glide.with(getActivity()).load(url).into(imageview);
 
@@ -46,7 +64,7 @@ public class FragmentRiskDashboard extends Fragment {
 //        webView.canGoBack();
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(url3);
+//        webView.loadUrl(url3);
 
 
         return view;

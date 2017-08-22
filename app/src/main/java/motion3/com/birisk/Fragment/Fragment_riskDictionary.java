@@ -2,6 +2,7 @@ package motion3.com.birisk.Fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -84,14 +85,13 @@ public class Fragment_riskDictionary extends Fragment {
 
 
 
-    //TODO: ini ganti jadi list gitu doang, ga ada onclick setelah itu, pake RV.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_risk_dictionary, container, false);
         MainActivity.iv.setVisibility(View.VISIBLE);
         MainActivity.iv.setImageResource(R.drawable.risk_dictionary);
         MainActivity.logo.setVisibility(View.GONE);
-        LinearLayout parent = (LinearLayout) view.findViewById(R.id.parent);
+        CoordinatorLayout parent = (CoordinatorLayout) view.findViewById(R.id.parent);
         setupUI(parent);
         edt = (EditText) view.findViewById(R.id.edt_search);
         recyclerView = (RecyclerView) view.findViewById(R.id.dict_rv);

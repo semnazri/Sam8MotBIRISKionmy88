@@ -41,7 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Fragment_accountList extends Fragment {
     View view;
     private RecyclerView rv;
-//    private Account_ListADapter adapter;
+    //    private Account_ListADapter adapter;
     private AccountListAdapter adapter;
     private LinearLayoutManager lm;
     private List<Record> list_model;
@@ -84,9 +84,9 @@ public class Fragment_accountList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.account_list, container, false);
-        MainActivity.iv.setVisibility(View.VISIBLE);
-        MainActivity.iv.setImageResource(R.drawable.risk_repository);
-        MainActivity.logo.setVisibility(View.GONE);
+
+        MainActivity.iv.setVisibility(View.GONE);
+        MainActivity.logo.setVisibility(View.VISIBLE);
         LinearLayout parent = (LinearLayout) view.findViewById(R.id.parent);
         setupUI(parent);
         edt = (EditText) view.findViewById(R.id.edt_search);
@@ -119,7 +119,7 @@ public class Fragment_accountList extends Fragment {
 
                 Log.d("ada", String.valueOf(response_status));
 
-                if (response_status > 0){
+                if (response_status > 0) {
 
 
                     for (int i = 0; i < response.body().getRecords().size(); i++) {

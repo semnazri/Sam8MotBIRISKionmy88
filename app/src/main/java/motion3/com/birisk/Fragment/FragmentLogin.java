@@ -1,7 +1,9 @@
 package motion3.com.birisk.Fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,9 +27,11 @@ import android.widget.Toast;
 
 import motion3.com.birisk.MainActivity;
 import motion3.com.birisk.Network.APIConstant;
+import motion3.com.birisk.Network.ConnectionDetector;
 import motion3.com.birisk.POJO.User;
 import motion3.com.birisk.POJO.UserInterface;
 import motion3.com.birisk.R;
+import motion3.com.birisk.SharedPreference;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,6 +54,9 @@ public class FragmentLogin extends Fragment {
     private TextView txt_forgot;
     private Button btn_login;
     private SharedPreferences prefsprivate;
+
+    private Boolean isInternetPresent = false;
+    private ConnectionDetector cd;
     private Vibrator vibe;
     private TextView.OnEditorActionListener mOnEditorAction =
             new TextView.OnEditorActionListener() {
@@ -100,6 +107,25 @@ public class FragmentLogin extends Fragment {
         txt_forgot = (TextView) view.findViewById(R.id.forgot_pass);
         vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
+
+        cd = new ConnectionDetector(getActivity());
+        prefsprivate = getActivity().getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
+        String Username = prefsprivate.getString(SharedPreference.email, "kosong");
+        String Password = prefsprivate.getString(SharedPreference.password, "kosong");
+
+        if (!Username.equals("kosong") && !Password.equals("kosong")) {
+
+            autoLoginCheckConnection(Username, Password);
+
+        } else if (Username.equals("kosong") && Password.equals("kosong")) {
+
+                edt_username.setText("");
+                edt_pass.setText("");
+
+
+        }
+
+
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,11 +150,30 @@ public class FragmentLogin extends Fragment {
         return view;
     }
 
+        private void autoLoginCheckConnection(String username, String password) {
+            isInternetPresent = cd.isConnectingToInternet();
+            if (isInternetPresent) {
+                doLogin(username, password);
+            } else {
+                AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                alertDialog.setMessage("Tidak ada koneksi internet");
+                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+
+            }
+
+    }
+
     private void attemptLogin() {
         edt_username.setError(null);
         edt_pass.setError(null);
 
-        String username = edt_username.getText().toString();
+        String email = edt_username.getText().toString();
         String password = edt_pass.getText().toString();
 
         boolean cancel = false;
@@ -142,7 +187,7 @@ public class FragmentLogin extends Fragment {
 //        }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(username)) {
+        if (TextUtils.isEmpty(email)) {
             edt_username.setError(getString(R.string.usernamenull));
             focusView = edt_username;
             vibe.vibrate(100);
@@ -160,35 +205,36 @@ public class FragmentLogin extends Fragment {
             // TODO: doLogin
             //TODO : Sementara langsung intent
 //            toMainActivity();
-            doLogin(username, password);
+            doLogin(email, password);
         }
     }
 
-    private void doLogin(String username, String password) {
+    private void doLogin(final String email, final String password) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(APIConstant.APIPARENT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         UserInterface service = retrofit.create(UserInterface.class);
-        Call<User> call = service.getUserDetail(username, password);
+        Call<User> call = service.getUserDetail(email, password);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response != null) {
                         String username = response.body().getUserDetail().getUName();
                         String userid = response.body().getUserDetail().getUId();
-                        String userphone = response.body().getUserDetail().getUPhone();
-                        String useraddress = response.body().getUserDetail().getUAddress();
                         String userpincode = response.body().getUserDetail().getUPincode();
+                        String title = response.body().getUserDetail().getUTitle();
 
                     prefsprivate = getActivity().getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
                     SharedPreferences.Editor preEditor = prefsprivate.edit();
-                    preEditor.putString(motion3.com.birisk.SharedPreferences.Username, username);
-                    preEditor.putString(motion3.com.birisk.SharedPreferences.userid, userid);
-                    preEditor.putString(motion3.com.birisk.SharedPreferences.userphone, userphone);
-                    preEditor.putString(motion3.com.birisk.SharedPreferences.useraddress, useraddress);
-                    preEditor.putString(motion3.com.birisk.SharedPreferences.userpincode, userpincode);
+                    preEditor.putString(SharedPreference.Username, username);
+                    preEditor.putString(SharedPreference.userid, userid);
+                    preEditor.putString(SharedPreference.utitle, title);
+                    preEditor.putString(SharedPreference.userpincode, userpincode);
+
+                    preEditor.putString(SharedPreference.email,email);
+                    preEditor.putString(SharedPreference.password,password);
                     preEditor.commit();
 
                     toMainActivity();

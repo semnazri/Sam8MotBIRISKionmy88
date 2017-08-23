@@ -279,7 +279,7 @@ public class Fragment_incidentReport extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ReportInterface service = retrofit.create(ReportInterface.class);
-        Call<IncidentReport> call = service.sendReport(new IncidentReportJSON(subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian));
+        Call<IncidentReport> call = service.sendReport(new IncidentReportJSON(subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian,wkt_tndk_lnjt,level));
         call.enqueue(new Callback<IncidentReport>() {
             @Override
             public void onResponse(Call<IncidentReport> call, Response<IncidentReport> response) {

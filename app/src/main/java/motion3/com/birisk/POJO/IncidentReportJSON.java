@@ -5,15 +5,17 @@ package motion3.com.birisk.POJO;
  */
 
 public class IncidentReportJSON {
-    private String subyek,catatan,lokasi,tanggallapor,tanggalevent,waktuevent,waktu_tindaklanjut;
+    private String subyek,catatan,lokasi,tanggallapor,tanggalevent,waktuevent,tanggalaction,levelevent;
 
-    public IncidentReportJSON(String subyek,String catatan, String lokasi, String tanggallapor,String tanggalevent,String waktuevent){
+    public IncidentReportJSON(String subyek,String catatan, String lokasi, String tanggallapor,String tanggalevent,String waktuevent,String tanggalaction,String levelevent){
         this.subyek = subyek;
         this.catatan = catatan;
         this.lokasi = lokasi;
         this.tanggallapor = tanggallapor;
         this.tanggalevent = tanggalevent;
         this.waktuevent = waktuevent;
+        this.tanggalaction = tanggalaction;
+        this.levelevent = levelevent;
     }
 
     /**
@@ -123,6 +125,40 @@ public class IncidentReportJSON {
      */
     public void setWaktuevent(String waktuevent) {
         this.waktuevent = waktuevent;
+    }
+
+    /**
+     *
+     * @return
+     * The tanggalaction
+     */
+    public String getTanggalaction() {
+        return tanggalaction;
+    }
+
+    /**
+     *
+     * @param tanggalaction
+     * The tanggalaction
+     */
+    public void setTanggalaction(String tanggalaction) {
+        this.tanggalaction = tanggalaction;
+    } /**
+     *
+     * @return
+     * The levelevent
+     */
+    public String getLevelevent() {
+        return levelevent;
+    }
+
+    /**
+     *
+     * @param levelevent
+     * The levelevent
+     */
+    public void setLevelevent(String levelevent) {
+        this.levelevent = levelevent;
     }
 
 

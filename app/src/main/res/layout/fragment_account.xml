@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/parent"
     android:background="@drawable/background_apps"
     android:orientation="vertical">
 
 
     <LinearLayout
-        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
+        android:layout_marginTop="50dp"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="10dp"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:src="@drawable/ic_person_transparent"
             app:civ_border_color="#80FFFFFF"
             app:civ_border_width="2dp" />
@@ -31,7 +31,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:text="John Doe"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -42,7 +41,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="johndoe@bi.go.id"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -68,20 +66,22 @@
             android:id="@+id/edt_email_changepass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="15dp"
             android:background="@color/white"
             android:drawablePadding="10dp"
             android:hint="Email"
+            android:clickable="false"
+            android:editable="false"
+            android:focusable="false"
             android:inputType="textEmailAddress"
             android:paddingBottom="5dp"
             android:paddingLeft="20dp"
             android:paddingTop="5dp"
-            android:textStyle="italic"
-
             android:singleLine="true"
+
             android:textColor="@color/black"
-            android:textColorHint="@color/black50" />
+            android:textColorHint="@color/black50"
+            android:textStyle="italic" />
 
         <EditText
             android:id="@+id/edt_newpass_changepass"
@@ -91,14 +91,14 @@
             android:background="@color/white"
             android:drawablePadding="10dp"
             android:hint="New Password"
-            android:textStyle="italic"
             android:inputType="textPassword"
             android:paddingBottom="5dp"
             android:paddingLeft="20dp"
             android:paddingTop="5dp"
             android:singleLine="true"
             android:textColor="@color/black"
-            android:textColorHint="@color/black50" />
+            android:textColorHint="@color/black50"
+            android:textStyle="italic" />
 
         <EditText
             android:id="@+id/edt_repass_changepass"
@@ -108,14 +108,14 @@
             android:background="@color/white"
             android:drawablePadding="10dp"
             android:hint="Re-type Password"
-            android:textStyle="italic"
             android:inputType="textPassword"
             android:paddingBottom="5dp"
             android:paddingLeft="20dp"
             android:paddingTop="5dp"
             android:singleLine="true"
             android:textColor="@color/black"
-            android:textColorHint="@color/black50" />
+            android:textColorHint="@color/black50"
+            android:textStyle="italic" />
 
         <Button
             android:id="@+id/btn_user"
@@ -129,7 +129,6 @@
             android:textSize="18sp" />
 
     </LinearLayout>
-
 
 
 </LinearLayout>

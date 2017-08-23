@@ -25,13 +25,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import motion3.com.birisk.BIRSKPreference;
 import motion3.com.birisk.MainActivity;
 import motion3.com.birisk.Network.APIConstant;
 import motion3.com.birisk.Network.ConnectionDetector;
 import motion3.com.birisk.POJO.User;
 import motion3.com.birisk.POJO.UserInterface;
 import motion3.com.birisk.R;
-import motion3.com.birisk.SharedPreference;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,7 +55,7 @@ public class FragmentLogin extends Fragment {
     private TextView txt_forgot;
     private Button btn_login;
     private SharedPreferences prefsprivate;
-
+    private SweetAlertDialog mDialog;
     private Boolean isInternetPresent = false;
     private ConnectionDetector cd;
     private Vibrator vibe;
@@ -110,8 +111,8 @@ public class FragmentLogin extends Fragment {
 
         cd = new ConnectionDetector(getActivity());
         prefsprivate = getActivity().getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
-        String Username = prefsprivate.getString(SharedPreference.email, "kosong");
-        String Password = prefsprivate.getString(SharedPreference.password, "kosong");
+        String Username = prefsprivate.getString(BIRSKPreference.email, "kosong");
+        String Password = prefsprivate.getString(BIRSKPreference.password, "kosong");
 
         if (!Username.equals("kosong") && !Password.equals("kosong")) {
 
@@ -119,8 +120,8 @@ public class FragmentLogin extends Fragment {
 
         } else if (Username.equals("kosong") && Password.equals("kosong")) {
 
-                edt_username.setText("");
-                edt_pass.setText("");
+            edt_username.setText("");
+            edt_pass.setText("");
 
 
         }
@@ -150,22 +151,22 @@ public class FragmentLogin extends Fragment {
         return view;
     }
 
-        private void autoLoginCheckConnection(String username, String password) {
-            isInternetPresent = cd.isConnectingToInternet();
-            if (isInternetPresent) {
-                doLogin(username, password);
-            } else {
-                AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-                alertDialog.setMessage("Tidak ada koneksi internet");
-                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                alertDialog.show();
+    private void autoLoginCheckConnection(String username, String password) {
+        isInternetPresent = cd.isConnectingToInternet();
+        if (isInternetPresent) {
+            doLogin(username, password);
+        } else {
+            AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+            alertDialog.setMessage("Tidak ada koneksi internet");
+            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alertDialog.show();
 
-            }
+        }
 
     }
 
@@ -210,7 +211,7 @@ public class FragmentLogin extends Fragment {
     }
 
     private void doLogin(final String email, final String password) {
-
+        getDialogmuter().show();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(APIConstant.APIPARENT)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -220,31 +221,40 @@ public class FragmentLogin extends Fragment {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+
+
                 if (response != null) {
-                        String username = response.body().getUserDetail().getUName();
-                        String userid = response.body().getUserDetail().getUId();
-                        String userpincode = response.body().getUserDetail().getUPincode();
-                        String title = response.body().getUserDetail().getUTitle();
+                    String username = response.body().getUserDetail().getUName();
+                    String userid = response.body().getUserDetail().getUId();
+                    String userpincode = response.body().getUserDetail().getUPincode();
+//                        String title = response.body().getUserDetail().getUTitle();
 
-                    prefsprivate = getActivity().getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor preEditor = prefsprivate.edit();
-                    preEditor.putString(SharedPreference.Username, username);
-                    preEditor.putString(SharedPreference.userid, userid);
-                    preEditor.putString(SharedPreference.utitle, title);
-                    preEditor.putString(SharedPreference.userpincode, userpincode);
+                    if (!username.equals("0") && !userid.equals("0") && !userpincode.equals("0")) {
+                        mDialog.dismissWithAnimation();
+                        prefsprivate = getActivity().getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor preEditor = prefsprivate.edit();
+                        preEditor.putString(BIRSKPreference.Username, username);
+                        preEditor.putString(BIRSKPreference.userid, userid);
+//                    preEditor.putString(BIRSKPreference.utitle, title);
+                        preEditor.putString(BIRSKPreference.userpincode, userpincode);
+                        preEditor.putString(BIRSKPreference.email, email);
+                        preEditor.putString(BIRSKPreference.password, password);
+                        preEditor.commit();
 
-                    preEditor.putString(SharedPreference.email,email);
-                    preEditor.putString(SharedPreference.password,password);
-                    preEditor.commit();
+                        toMainActivity();
 
-                    toMainActivity();
+                    } else {
+                        mDialog.dismissWithAnimation();
+                        getDialogError("Terjadi kesalahan").show();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 android.util.Log.d("onFailure", t.toString());
-                Toast.makeText(getActivity(), "Terjadi Kesalahan", Toast.LENGTH_LONG).show();
+                mDialog.dismissWithAnimation();
+                getDialogFailure("Terjadi Kesalahan").show();
             }
         });
 
@@ -281,6 +291,56 @@ public class FragmentLogin extends Fragment {
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() > 2;
+    }
+
+    private SweetAlertDialog getDialogmuter() {
+        mDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        mDialog.getProgressHelper()
+                .setBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        mDialog.getProgressHelper()
+                .setRimColor(getResources().getColor(R.color.white));
+        mDialog.setTitleText("Loading...");
+        mDialog.setCancelable(false);
+        return mDialog;
+    }
+
+    private SweetAlertDialog getDialogError(String s) {
+        mDialog = new SweetAlertDialog(getActivity());
+        mDialog.setTitleText("BIRISK");
+        mDialog.setContentText(s);
+        mDialog.setConfirmText("Close");
+        mDialog.changeAlertType(SweetAlertDialog.WARNING_TYPE);
+        mDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+
+                prefsprivate = getActivity().getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefsprivate.edit();
+                editor.clear();
+                editor.commit();
+                mDialog.dismiss();
+
+            }
+        });
+
+
+        return mDialog;
+    }
+
+    private SweetAlertDialog getDialogFailure(String s) {
+        mDialog = new SweetAlertDialog(getActivity());
+        mDialog.setTitleText("BIRISK");
+        mDialog.setContentText(s);
+        mDialog.setConfirmText("Close");
+        mDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+        mDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                mDialog.dismiss();
+            }
+        });
+
+        return mDialog;
     }
 
 

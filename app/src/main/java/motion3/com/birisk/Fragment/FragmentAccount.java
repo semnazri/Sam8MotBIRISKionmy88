@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,10 +20,24 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 import motion3.com.birisk.MainActivity;
+import motion3.com.birisk.Network.APIConstant;
+import motion3.com.birisk.POJO.ChangePass;
+import motion3.com.birisk.POJO.ChangePassJSON;
+import motion3.com.birisk.POJO.LostPassJSON;
+import motion3.com.birisk.POJO.LostPassword;
+import motion3.com.birisk.POJO.UserInterface;
 import motion3.com.birisk.R;
-import motion3.com.birisk.SharedPreference;
+import motion3.com.birisk.BIRSKPreference;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static motion3.com.birisk.BIRSKPreference.email;
 
 /**
  * Created by Semmy on 8/12/2017.
@@ -38,6 +53,7 @@ public class FragmentAccount extends Fragment {
     private Button btn_submit;
     private Vibrator vibe;
     private SharedPreferences prefsprivate;
+    private SweetAlertDialog mDialog;
 
     String nama,usrid,phone,address,pincode;
     private TextView.OnEditorActionListener mOnEditorAction =
@@ -46,7 +62,7 @@ public class FragmentAccount extends Fragment {
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_GO || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
 //                        prefsprivate = getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
-//                        SharedPreference.Editor prefsprivateEditor = prefsprivate.edit();
+//                        BIRSKPreference.Editor prefsprivateEditor = prefsprivate.edit();
 //                        prefsprivateEditor.putString(WKNDConstant.USERNAME, etUsername.getText().toString());
 //                        prefsprivateEditor.commit();
                         validasi();
@@ -101,11 +117,12 @@ public class FragmentAccount extends Fragment {
         vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
         prefsprivate = getActivity().getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
-        nama = prefsprivate.getString(SharedPreference.Username, "nama");
-        usrid = prefsprivate.getString(SharedPreference.userid, "userid");
+        nama = prefsprivate.getString(BIRSKPreference.Username, "nama");
+        usrid = prefsprivate.getString(BIRSKPreference.userid, "userid");
 
         tv_name.setText(nama);
         tv_email.setText(usrid);
+        edt_email.setText(usrid);
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +189,7 @@ public class FragmentAccount extends Fragment {
 
 
         if (newpass.equals(retypepass) && isPasswordValid(newpass) && isPasswordValid(retypepass)) {
-            tohome();
+            tohome(email,newpass);
         }else {
             edt_new_retypePass.setError(getString(R.string.doesntmatch));
             focusView = edt_new_retypePass;
@@ -187,9 +204,38 @@ public class FragmentAccount extends Fragment {
 
     }
 
-    private void tohome() {
+    private void tohome(String email, String newpass) {
 
-       getFragmentManager().popBackStack();
+        getDialogmuter().show();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(APIConstant.APIPARENT)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        UserInterface service = retrofit.create(UserInterface.class);
+        Call<ChangePass> call = service.changePass(new ChangePassJSON(email, newpass));
+        call.enqueue(new Callback<ChangePass>() {
+            @Override
+            public void onResponse(Call<ChangePass> call, Response<ChangePass> response) {
+                Log.d("response", response.toString());
+                String chang = response.body().getResult().getChanged();
+                String failed = response.body().getResult().getFailed();
+
+                if (chang.equals("1") && failed.equals("0")) {
+                    mDialog.dismissWithAnimation();
+                    getDialogSukses("Password anda telah berhasil diubah").show();
+                } else {
+                    mDialog.dismissWithAnimation();
+                    getDialogError("Terjadi kesalahan, silakan coba kembali").show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChangePass> call, Throwable t) {
+                android.util.Log.d("onFailure", t.toString());
+                mDialog.dismissWithAnimation();
+                getDialogFailure("Terjadi kesalahan silakan coba kembali").show();
+            }
+        });
     }
 
     private boolean isEmailValid(String username) {
@@ -200,5 +246,70 @@ public class FragmentAccount extends Fragment {
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() > 4;
+    }
+
+    private SweetAlertDialog getDialogmuter() {
+        mDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        mDialog.getProgressHelper()
+                .setBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        mDialog.getProgressHelper()
+                .setRimColor(getResources().getColor(R.color.white));
+        mDialog.setTitleText("Loading...");
+        mDialog.setCancelable(false);
+        return mDialog;
+    }
+
+    private SweetAlertDialog getDialogSukses(String s) {
+        mDialog = new SweetAlertDialog(getActivity());
+        mDialog.setTitleText("BIRISK");
+        mDialog.setContentText(s);
+        mDialog.setConfirmText("Close");
+        mDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+        mDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+
+                getFragmentManager().popBackStack();
+                mDialog.dismiss();
+            }
+        });
+
+
+        return mDialog;
+    }
+
+
+    private SweetAlertDialog getDialogError(String s) {
+        mDialog = new SweetAlertDialog(getActivity());
+        mDialog.setTitleText("BIRISK");
+        mDialog.setContentText(s);
+        mDialog.setConfirmText("Close");
+        mDialog.changeAlertType(SweetAlertDialog.WARNING_TYPE);
+        mDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+
+                mDialog.dismiss();
+            }
+        });
+
+
+        return mDialog;
+    }
+
+    private SweetAlertDialog getDialogFailure(String s) {
+        mDialog = new SweetAlertDialog(getActivity());
+        mDialog.setTitleText("BIRISK");
+        mDialog.setContentText(s);
+        mDialog.setConfirmText("Close");
+        mDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+        mDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                mDialog.dismiss();
+            }
+        });
+
+        return mDialog;
     }
 }

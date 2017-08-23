@@ -15,9 +15,9 @@ public class UserDetail {
     @SerializedName("u_id")
     @Expose
     private String uId;
-    @SerializedName("u_title")
-    @Expose
-    private String uTitle;
+//    @SerializedName("u_title")
+//    @Expose
+//    private String uTitle;
     @SerializedName("u_pincode")
     @Expose
     private String uPincode;
@@ -38,13 +38,13 @@ public class UserDetail {
         this.uId = uId;
     }
 
-    public String getUTitle() {
-        return uTitle;
-    }
-
-    public void setUTitle(String uTitle) {
-        this.uTitle = uTitle;
-    }
+//    public String getUTitle() {
+//        return uTitle;
+//    }
+//
+//    public void setUTitle(String uTitle) {
+//        this.uTitle = uTitle;
+//    }
 
     public String getUPincode() {
         return uPincode;

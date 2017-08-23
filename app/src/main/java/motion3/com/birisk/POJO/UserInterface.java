@@ -1,7 +1,9 @@
 package motion3.com.birisk.POJO;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -15,4 +17,12 @@ public interface UserInterface {
 
     @GET("users.php")
     Call<UserList>getUserList();
+
+    @POST("losty.php")
+    Call<LostPassword> sendLost(@Body LostPassJSON lostPassJSON);
+
+    @POST("change.php")
+    Call<ChangePass> changePass(@Body ChangePassJSON changePassJSON);
+
+
 }

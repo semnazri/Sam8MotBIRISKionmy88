@@ -9,6 +9,7 @@
     <include layout="@layout/toolbar_login_new" />
 
     <LinearLayout
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -52,7 +53,6 @@
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
                     android:singleLine="true"
-                    android:text="test@123.com"
                     android:textColor="@color/black"
                     android:textColorHint="@color/black" />
 
@@ -80,7 +80,6 @@
                     android:paddingLeft="20dp"
                     android:paddingTop="5dp"
                     android:singleLine="true"
-                    android:text="123"
                     android:textColor="@color/black"
                     android:textColorHint="@color/black" />
 

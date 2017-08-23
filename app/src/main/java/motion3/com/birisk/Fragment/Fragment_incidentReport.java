@@ -296,7 +296,8 @@ public class Fragment_incidentReport extends Fragment {
 
             @Override
             public void onFailure(Call<IncidentReport> call, Throwable t) {
-
+                android.util.Log.d("onFailure", t.toString());
+                getDialogFailure("Terjadi kesalahan silakan coba lagi").show();
             }
         });
 
@@ -361,6 +362,22 @@ public class Fragment_incidentReport extends Fragment {
                 .setRimColor(getResources().getColor(R.color.white));
         mDialog.setTitleText("Loading...");
         mDialog.setCancelable(false);
+        return mDialog;
+    }
+
+    private SweetAlertDialog getDialogFailure(String s) {
+        mDialog = new SweetAlertDialog(getActivity());
+        mDialog.setTitleText("BIRISK");
+        mDialog.setContentText(s);
+        mDialog.setConfirmText("Close");
+        mDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+        mDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                mDialog.dismiss();
+            }
+        });
+
         return mDialog;
     }
 }

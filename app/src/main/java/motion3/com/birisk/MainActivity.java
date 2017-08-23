@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import motion3.com.birisk.Fragment.FragmentAccount;
 import motion3.com.birisk.Fragment.FragmentHome;
 import motion3.com.birisk.Fragment.FragmentRiskDashboard;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar mToolbar;
     NavigationView navigationView;
     FragmentManager fragmentManager;
+    private SweetAlertDialog mDialog;
+
     String url, title, pincode;
     private SharedPreferences prefsprivate;
     public static final String PREFS_PRIVATE = "PREFS_PRIVATE";
@@ -79,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MainActivity.toggle.syncState();
 
         prefsprivate = getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
-        pincode = prefsprivate.getString(SharedPreference.userpincode,"kosong");
+        pincode = prefsprivate.getString(BIRSKPreference.userpincode, "kosong");
 
 
         toggle.setDrawerIndicatorEnabled(false);
@@ -100,19 +103,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
 
-
-        if (pincode.equals("2")){
-            Log.d("ada",pincode);
+        if (pincode.equals("2")) {
+            Log.d("ada", pincode);
             Menu menuNav = navigationView.getMenu();
             MenuItem hide = menuNav.findItem(R.id.account_list);
             hide.setVisible(false);
-        }else if (pincode.equals("1") ){
-            Log.d("ada2",pincode);
+        } else if (pincode.equals("1")) {
+            Log.d("ada2", pincode);
             Menu menuNav = navigationView.getMenu();
             MenuItem hide = menuNav.findItem(R.id.account_list);
             hide.setVisible(true);
-        }else {
-            Log.d("else","ada");
+        } else {
+            Log.d("else", "ada");
         }
 
 
@@ -155,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment fragment = null;
 
 
-
         if (id == R.id.home) {
             fragment = new FragmentHome();
         } else if (id == R.id.account) {
@@ -192,9 +193,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void Signout() {
-        Intent i = new Intent(this, LoginActivity.class);
-        startActivity(i);
-        finish();
+
+        getDialogLogout("Logout mengharuskan untuk mengganti password anda ketika kembali login\n anda yakin?").show();
+
     }
 
     @Override
@@ -245,6 +246,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int wich) {
+
                                     finish();
 
                                 }
@@ -280,5 +282,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         manager.enqueue(request);
+    }
+
+    private SweetAlertDialog getDialogLogout(String s) {
+        mDialog = new SweetAlertDialog(this);
+        mDialog.setTitleText("BIRISK");
+        mDialog.setContentText(s);
+        mDialog.setConfirmText("Ya");
+        mDialog.setCancelText("Tidak");
+        mDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+        mDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
+
+                prefsprivate = getApplication().getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefsprivate.edit();
+//                                    editor.remove(BIRSKPreference.Username);
+//                                    editor.remove(BIRSKPreference.userid);
+//                                    editor.remove(BIRSKPreference.utitle);
+//                                    editor.remove(BIRSKPreference.userpincode);
+//                                    editor.remove(BIRSKPreference.email);
+//                                    editor.remove(BIRSKPreference.password);
+                editor.clear();
+                editor.commit();
+                mDialog.dismiss();
+
+            }
+        })
+        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                mDialog.dismiss();
+            }
+        });
+
+
+        return mDialog;
     }
 }

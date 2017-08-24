@@ -34,7 +34,7 @@
             android:layout_height="90dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:src="@drawable/risk_dash_new" />
+            android:src="@drawable/ic_risk_dashboard_copy" />
 
         <ImageView
             android:id="@+id/incident_report"

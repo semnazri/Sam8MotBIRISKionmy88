@@ -9,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -30,6 +32,7 @@ import motion3.com.birisk.MainActivity;
 import motion3.com.birisk.Network.APIConstant;
 import motion3.com.birisk.Network.ConnectionDetector;
 import motion3.com.birisk.Network.DownloadListener;
+import motion3.com.birisk.POJO.DictRecord;
 import motion3.com.birisk.POJO.Dummy_model;
 import motion3.com.birisk.POJO.RIskRecord;
 import motion3.com.birisk.POJO.Risk;
@@ -183,6 +186,9 @@ public class FragmentRiskRepository extends Fragment implements DownloadListener
 
                         adapter = new RiskAdapter(getActivity(), list_model, FragmentRiskRepository.this);
                         rv.setAdapter(adapter);
+
+                        addSearchFucntion();
+
                     }
 
                 }
@@ -212,5 +218,50 @@ public class FragmentRiskRepository extends Fragment implements DownloadListener
         } else if (isInternetPresent.equals(false)) {
             Toast.makeText(getActivity(), "No Internet Connection", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void addSearchFucntion() {
+
+        edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence query, int start, int before, int count) {
+//                query = query.toString().toLowerCase();
+//
+//                final List<DictRecord> listnyadah = new ArrayList<DictRecord>();
+//
+//                for (int i = 0; i < listmodel.size(); i++) {
+//
+//                    final String text = listmodel.get(i).getDName().toString().toLowerCase();
+//                    if (text.contains(query)) {
+//
+//                        listnyadah.add(listmodel.get(i));
+//                        adapter.notifyDataSetChanged();
+//                    }
+//                }
+
+                fiter(query.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void fiter(String text) {
+
+        List<RIskRecord> temp = new ArrayList<>();
+        for (RIskRecord d: list_model){
+            if (d.getRName().contains(text)){
+                temp.add(d);
+            }
+        }
+        adapter.updatelist(temp);
     }
 }

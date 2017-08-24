@@ -42,4 +42,9 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryViewHolder
     public int getItemCount() {
         return mValues.size();
     }
+
+    public void updatelist(List<DictRecord> list){
+        mValues = list;
+        notifyDataSetChanged();
+    }
 }

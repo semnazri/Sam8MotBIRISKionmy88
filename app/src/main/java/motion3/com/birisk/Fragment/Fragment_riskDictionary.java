@@ -6,6 +6,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -134,6 +136,8 @@ public class Fragment_riskDictionary extends Fragment {
                         listmodel.add(rec);
                         adapter = new DictionaryAdapter(getActivity(),listmodel);
                         recyclerView.setAdapter(adapter);
+                        
+                        addSearchFucntion();
                     }
 
 
@@ -145,5 +149,50 @@ public class Fragment_riskDictionary extends Fragment {
 
             }
         });
+    }
+
+    private void addSearchFucntion() {
+
+        edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence query, int start, int before, int count) {
+//                query = query.toString().toLowerCase();
+//
+//                final List<DictRecord> listnyadah = new ArrayList<DictRecord>();
+//
+//                for (int i = 0; i < listmodel.size(); i++) {
+//
+//                    final String text = listmodel.get(i).getDName().toString().toLowerCase();
+//                    if (text.contains(query)) {
+//
+//                        listnyadah.add(listmodel.get(i));
+//                        adapter.notifyDataSetChanged();
+//                    }
+//                }
+
+                fiter(query.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void fiter(String text) {
+
+        List<DictRecord> temp = new ArrayList<>();
+        for (DictRecord d: listmodel){
+            if (d.getDName().contains(text)){
+                temp.add(d);
+            }
+        }
+        adapter.updatelist(temp);
     }
 }

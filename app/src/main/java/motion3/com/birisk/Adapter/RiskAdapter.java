@@ -90,4 +90,9 @@ public class RiskAdapter extends RecyclerView.Adapter<DummyViewHolder> {
     public int getItemCount() {
         return mValues.size();
     }
+
+    public void updatelist(List<RIskRecord> list){
+        mValues = list;
+        notifyDataSetChanged();
+    }
 }

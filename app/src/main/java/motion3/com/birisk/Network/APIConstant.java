@@ -6,5 +6,5 @@ package motion3.com.birisk.Network;
 
 public class APIConstant {
 
-    public static final String APIPARENT = "http://commfiles.com/bayris/api/";
+    public static final String APIPARENT = "http://128.199.85.148/api/";
 }

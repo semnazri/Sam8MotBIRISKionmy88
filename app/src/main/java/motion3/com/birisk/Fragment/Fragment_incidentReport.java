@@ -1,9 +1,11 @@
 package motion3.com.birisk.Fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.design.widget.CoordinatorLayout;
@@ -32,6 +34,7 @@ import java.util.Locale;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import motion3.com.birisk.MainActivity;
 import motion3.com.birisk.Network.APIConstant;
+import motion3.com.birisk.Network.ConnectionDetector;
 import motion3.com.birisk.POJO.IncidentReport;
 import motion3.com.birisk.POJO.IncidentReportJSON;
 import motion3.com.birisk.POJO.ReportInterface;
@@ -57,6 +60,8 @@ public class Fragment_incidentReport extends Fragment {
     private RadioButton rB1;
     private Button btn_submit;
     private SweetAlertDialog mDialog;
+    private Boolean isInternetPresent = false;
+    private ConnectionDetector cd;
     private EditText edt_tgl_pelaporan, edt_waktu_kejadian, edt_tindaklanjut, edtSubject, edt_catatan, edt_lokasi;
     Calendar calendar_kejadian = Calendar.getInstance();
     Calendar calendar_tindaklanjut = Calendar.getInstance();
@@ -121,6 +126,7 @@ public class Fragment_incidentReport extends Fragment {
 
         btn_submit = (Button) view.findViewById(R.id.btn_submit);
 
+        cd = new ConnectionDetector(getActivity());
 
         final DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
 
@@ -264,7 +270,24 @@ public class Fragment_incidentReport extends Fragment {
             SimpleDateFormat curent_date = new SimpleDateFormat("dd-MM-yyyy");
             String now = curent_date.format(c.getTime());
 
-            sendReport(subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian, wkt_tndk_lnjt, level);
+            isInternetPresent = cd.isConnectingToInternet();
+            if (isInternetPresent) {
+                sendReport(subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian, wkt_tndk_lnjt, level);
+
+
+            }else {
+                AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                alertDialog.setMessage("Tidak ada koneksi internet");
+                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+            }
+
+
         }
 
 

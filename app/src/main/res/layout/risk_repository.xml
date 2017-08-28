@@ -77,6 +77,18 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"/>
 
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="-15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:textStyle="italic"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Scroll down for more data" />
+
 
     </LinearLayout>
 

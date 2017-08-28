@@ -24,8 +24,8 @@ import motion3.com.birisk.R;
 public class FragmentRiskDashboard extends Fragment {
     private View view;
 //    private String url = "http://www.pngpix.com/wp-content/uploads/2016/10/PNGPIX-COM-Pie-Chart-PNG-Image.png";
-    private String url = "http://commfiles.com/bayris/sandbox/dashboard/index1.html";
-    private String url2 = "http://commfiles.com/bayris/sandbox/dashboard/index2.html";
+    private String url = "http://128.199.85.148/sandbox/dashboard/index1.html";
+    private String url2 = "http://128.199.85.148/sandbox/dashboard/index2.html";
     private String url3 = "http://commfiles.com/bayris/sandbox/dashboard/index.html";
     private ImageView imageview;
     private WebView webView;
@@ -64,7 +64,7 @@ public class FragmentRiskDashboard extends Fragment {
 //        webView.canGoBack();
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.setWebViewClient(new WebViewClient());
-//        webView.loadUrl(url3);
+        webView.loadUrl(url);
 
 
         return view;

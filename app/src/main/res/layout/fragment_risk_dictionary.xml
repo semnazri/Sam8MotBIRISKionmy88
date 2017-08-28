@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/parent"
     android:background="@drawable/bg_new_copy"
     android:orientation="vertical">
 
@@ -21,37 +21,47 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="30dp"
             android:background="@color/white"
-            android:drawableRight="@drawable/ic_search_black_24dp"
+            android:singleLine="true"
+            android:drawableRight="@drawable/ic_svg_icon_09"
             android:hint="Search.."
-            android:paddingBottom="10dp"
+            android:paddingTop="8dp"
             android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp" />
-
+            android:paddingRight="10dp" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:background="@color/white"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="10dp"
+                android:id="@+id/dict_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:id="@+id/dict_rv"
+                android:layout_marginTop="10dp"
                 android:fadeScrollbars="false"
-                android:scrollbars="vertical"
+                android:layout_marginBottom="30dp"
+                android:layout_weight="1"
+                android:scrollbars="vertical" />
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="-15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-
-
+                android:layout_height="wrap_content"
+                android:text="Scroll down for more data" />
 
 
         </LinearLayout>

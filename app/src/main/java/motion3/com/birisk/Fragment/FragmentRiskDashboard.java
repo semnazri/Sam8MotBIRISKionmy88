@@ -26,10 +26,10 @@ public class FragmentRiskDashboard extends Fragment {
 //    private String url = "http://www.pngpix.com/wp-content/uploads/2016/10/PNGPIX-COM-Pie-Chart-PNG-Image.png";
     private String url = "http://128.199.85.148/sandbox/dashboard/index1.html";
     private String url2 = "http://128.199.85.148/sandbox/dashboard/index2.html";
-    private String url3 = "http://commfiles.com/bayris/sandbox/dashboard/index.html";
+    private String url3 = "http://128.199.85.148/sandbox/dashboard/indextop.html";
     private ImageView imageview;
     private WebView webView;
-    private Button btn_pie,btn_wide;
+    private Button btn_pie,btn_wide,btn_topten;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class FragmentRiskDashboard extends Fragment {
         MainActivity.logo.setVisibility(View.GONE);
         btn_pie = (Button) view.findViewById(R.id.btn_pie);
         btn_wide = (Button) view.findViewById(R.id.btn_wide);
+        btn_topten = (Button) view.findViewById(R.id.btn_topten);
 
         btn_pie.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +55,13 @@ public class FragmentRiskDashboard extends Fragment {
                 webView.loadUrl(url2);
             }
         });
+
+        btn_topten.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                webView.loadUrl(url3);
+            }
+        });
 //        imageview = (ImageView) view.findViewById(R.id.img_pie);
 //        Glide.with(getActivity()).load(url).into(imageview);
 
@@ -64,7 +72,7 @@ public class FragmentRiskDashboard extends Fragment {
 //        webView.canGoBack();
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(url);
+        webView.loadUrl(url3);
 
 
         return view;

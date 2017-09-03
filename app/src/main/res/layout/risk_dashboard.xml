@@ -26,43 +26,52 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_pie"
-                android:layout_weight="1"
+                android:id="@+id/btn_topten"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginRight="5dp"
-                android:text="Pie Chart"
-                android:textColor="@color/white"
-                android:background="@drawable/btn_rounded_biru"/>
+                android:layout_weight="1"
+                android:background="@drawable/btn_rounded_biru"
+                android:text="Top Ten Risk"
+                android:textColor="@color/white" />
 
             <Button
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:id="@+id/btn_wide"
-                android:text="BI-Wide"
-                android:textColor="@color/white"
+                android:id="@+id/btn_pie"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/btn_rounded_biru"/>
+                android:layout_weight="1"
+                android:background="@drawable/btn_rounded_biru"
+                android:text="Per Sector"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_wide"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_rounded_biru"
+                android:text="BI-Wide"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <WebView
             android:id="@+id/webview"
-            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="10dp" />
     </LinearLayout>
 
 

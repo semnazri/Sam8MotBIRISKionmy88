@@ -42,7 +42,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/btn_rounded_biru"
                 android:text="Top Ten Risk"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btn_pie"
@@ -51,7 +52,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/btn_rounded_biru"
                 android:text="Per Sector"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btn_wide"
@@ -61,17 +63,39 @@
                 android:layout_weight="1"
                 android:background="@drawable/btn_rounded_biru"
                 android:text="BI-Wide"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="12sp" />
         </LinearLayout>
 
-        <WebView
-            android:id="@+id/webview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <WebView
+                android:id="@+id/webview"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:gravity="start|center"
+                android:layout_weight="10"
+                android:background="@color/white"
+                android:text="Scroll down for more data"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+
     </LinearLayout>
 
 

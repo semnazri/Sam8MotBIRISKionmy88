@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -96,6 +97,7 @@ public class Fragment_riskDictionary extends Fragment {
         CoordinatorLayout parent = (CoordinatorLayout) view.findViewById(R.id.parent);
         setupUI(parent);
         edt = (EditText) view.findViewById(R.id.edt_search);
+        edt.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         recyclerView = (RecyclerView) view.findViewById(R.id.dict_rv);
 
 

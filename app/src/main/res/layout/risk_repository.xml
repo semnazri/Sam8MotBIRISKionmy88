@@ -7,21 +7,40 @@
     android:orientation="vertical">
 
 
-    <EditText
-        android:id="@+id/edt_search"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="30dp"
-        android:background="@color/white"
-        android:singleLine="true"
-        android:drawableRight="@drawable/ic_svg_icon_09"
-        android:hint="Search.."
-        android:paddingTop="8dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="10dp" />
+        android:orientation="vertical">
 
+
+        <EditText
+            android:id="@+id/edt_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_svg_icon_09"
+            android:hint="Search.."
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp"
+            android:singleLine="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:layout_marginTop="-5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/white"
+            android:text="Pencarian ini menggunakan Sensitif Case"
+            android:textColor="@color/black"
+            android:textStyle="italic" />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

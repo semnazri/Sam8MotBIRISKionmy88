@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -133,6 +134,7 @@ public class FragmentRiskRepository extends Fragment implements DownloadListener
 ////        rv.addItemDecoration(new DividerItemDecoration(getActivity()));
 //        rv.setAdapter(adapter);
         edt = (EditText) view.findViewById(R.id.edt_search);
+        edt.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
         loadrepository();
 

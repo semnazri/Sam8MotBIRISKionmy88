@@ -272,7 +272,9 @@ public class Fragment_incidentReport extends Fragment {
 
             isInternetPresent = cd.isConnectingToInternet();
             if (isInternetPresent) {
-                sendReport(subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian, wkt_tndk_lnjt, level);
+
+                ConfirmationDIalog("Apakah anda yakin ?",subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian, wkt_tndk_lnjt, level).show();
+//                sendReport(subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian, wkt_tndk_lnjt, level);
 
 
             }else {
@@ -401,6 +403,29 @@ public class Fragment_incidentReport extends Fragment {
             }
         });
 
+        return mDialog;
+    }
+
+    private SweetAlertDialog ConfirmationDIalog(String s, final String subject, final String catatatan, final String lokasi, final String now, final String tgl_kjadian, final String wkt_kejadian, final String wkt_tndk_lnjt, final String level) {
+        mDialog = new SweetAlertDialog(getActivity());
+        mDialog.setTitleText("BIRISK");
+        mDialog.setContentText(s);
+        mDialog.setConfirmText("Send");
+        mDialog.setCancelText("Cancel");
+        mDialog.changeAlertType(SweetAlertDialog.WARNING_TYPE);
+        mDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                mDialog.dismiss();
+                sendReport(subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian, wkt_tndk_lnjt, level);
+            }
+        });
+        mDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                mDialog.dismissWithAnimation();
+            }
+        });
         return mDialog;
     }
 }

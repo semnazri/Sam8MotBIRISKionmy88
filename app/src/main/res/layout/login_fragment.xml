@@ -129,16 +129,11 @@
             android:layout_marginLeft="10dp"
             android:src="@drawable/bi" />
 
-        <TextView
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="30dp"
-            android:text="Departemen\nManajemen Risiko"
-            android:textAlignment="center"
-            android:textColor="@color/biru_bi"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_dmr_lagi_01" />
     </LinearLayout>
 
 </LinearLayout>

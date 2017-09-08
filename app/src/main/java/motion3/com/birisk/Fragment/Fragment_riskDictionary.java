@@ -92,7 +92,7 @@ public class Fragment_riskDictionary extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_risk_dictionary, container, false);
         MainActivity.iv.setVisibility(View.VISIBLE);
-        MainActivity.iv.setImageResource(R.drawable.risk_dictionary);
+        MainActivity.iv.setImageResource(R.drawable.risk_glosary_top);
         MainActivity.logo.setVisibility(View.GONE);
         CoordinatorLayout parent = (CoordinatorLayout) view.findViewById(R.id.parent);
         setupUI(parent);

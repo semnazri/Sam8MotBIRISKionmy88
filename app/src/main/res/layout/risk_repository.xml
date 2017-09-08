@@ -1,115 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/parent"
     android:background="@drawable/bg_new_copy"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-
-
-        <EditText
-            android:id="@+id/edt_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableRight="@drawable/ic_svg_icon_09"
-            android:hint="Search.."
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:paddingTop="8dp"
-            android:singleLine="true" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_weight="1"
-            android:layout_marginTop="-5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="30dp"
             android:background="@color/white"
-            android:text="Pencarian ini menggunakan Sensitif Case"
-            android:textColor="@color/black"
-            android:textStyle="italic" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/white"
-        android:orientation="vertical">
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/edt_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_svg_icon_09"
+                android:hint="Search.."
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp"
+                android:singleLine="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="-5dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:text="Pencarian ini menggunakan Case Sensitive"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingTop="20dp"
-                android:text="File"
-                android:textColor="@color/black" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="20dp"
+                    android:text="File"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="20dp"
+                    android:text="Keterangan"
+                    android:textColor="@color/black" />
+            </LinearLayout>
 
             <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/black" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_download"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:fadeScrollbars="false"
+                android:scrollbars="vertical" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="-20dp"
                 android:layout_weight="1"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="20dp"
-                android:text="Keterangan"
-                android:textColor="@color/black" />
+                android:background="@color/white"
+                android:text="Scroll down for more data"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_download"
-            android:fadeScrollbars="false"
-            android:scrollbars="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"/>
-
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="-15dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:textStyle="italic"
-            android:textColor="@color/black"
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Scroll down for more data" />
-
 
     </LinearLayout>
 
+
+
+
     <include layout="@layout/footer" />
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

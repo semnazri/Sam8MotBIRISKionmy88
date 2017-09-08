@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -122,7 +123,7 @@ public class FragmentRiskRepository extends Fragment implements DownloadListener
         MainActivity.iv.setVisibility(View.VISIBLE);
         MainActivity.iv.setImageResource(R.drawable.title_knowladge);
         MainActivity.logo.setVisibility(View.GONE);
-        LinearLayout parent = (LinearLayout) view.findViewById(R.id.parent);
+        CoordinatorLayout parent = (CoordinatorLayout) view.findViewById(R.id.parent);
         setupUI(parent);
 
         rv = (RecyclerView) view.findViewById(R.id.rv_download);

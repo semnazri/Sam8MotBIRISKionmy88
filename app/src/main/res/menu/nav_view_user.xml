@@ -22,7 +22,7 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/r_dictionary"
-            android:title="Risk Dictionary" />
+            android:title="Risk Glossary" />
         </group>
     <group
         android:id="@+id/lima"

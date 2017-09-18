@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.design.widget.CoordinatorLayout;
@@ -32,12 +33,14 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import motion3.com.birisk.BIRSKPreference;
 import motion3.com.birisk.MainActivity;
 import motion3.com.birisk.Network.APIConstant;
 import motion3.com.birisk.Network.ConnectionDetector;
 import motion3.com.birisk.POJO.IncidentReport;
 import motion3.com.birisk.POJO.IncidentReportJSON;
 import motion3.com.birisk.POJO.ReportInterface;
+import motion3.com.birisk.POJO.User;
 import motion3.com.birisk.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,6 +58,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Fragment_incidentReport extends Fragment {
 
     private View view;
+    public static final String PREFS_PRIVATE = "PREFS_PRIVATE";
+    private SharedPreferences prefsprivate;
     private Vibrator vibe;
     private RadioGroup radioGroup;
     private RadioButton rB1;
@@ -209,8 +214,10 @@ public class Fragment_incidentReport extends Fragment {
                 String wkt_kejadian = edt_waktu_kejadian.getText().toString();
                 String wkt_tndk_lnjt = edt_tindaklanjut.getText().toString();
                 String level = String.valueOf(rB1.getText());
+                prefsprivate = getActivity().getSharedPreferences(PREFS_PRIVATE, Context.MODE_PRIVATE);
+                String Username = prefsprivate.getString(BIRSKPreference.email, "kosong");
 
-                validasi(Subject, Catatatan, Lokasi, tgl_kjadian, wkt_kejadian, wkt_tndk_lnjt, level);
+                validasi(Subject, Catatatan, Lokasi, tgl_kjadian, wkt_kejadian,Username, wkt_tndk_lnjt, level);
 
             }
         });
@@ -219,7 +226,7 @@ public class Fragment_incidentReport extends Fragment {
         return view;
     }
 
-    private void validasi(String subject, String catatatan, String lokasi, String tgl_kjadian, String wkt_kejadian, String wkt_tndk_lnjt, String level) {
+    private void validasi(String subject, String catatatan, String lokasi, String tgl_kjadian, String wkt_kejadian,String Username, String wkt_tndk_lnjt, String level) {
         edtSubject.setError(null);
         edt_catatan.setError(null);
         edt_lokasi.setError(null);
@@ -273,7 +280,7 @@ public class Fragment_incidentReport extends Fragment {
             isInternetPresent = cd.isConnectingToInternet();
             if (isInternetPresent) {
 
-                ConfirmationDIalog("Apakah anda yakin ?",subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian, wkt_tndk_lnjt, level).show();
+                ConfirmationDIalog("Apakah anda yakin ?",subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian,Username, wkt_tndk_lnjt, level).show();
 //                sendReport(subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian, wkt_tndk_lnjt, level);
 
 
@@ -295,7 +302,7 @@ public class Fragment_incidentReport extends Fragment {
 
     }
 
-    private void sendReport(String subject, String catatatan, String lokasi, String now, String tgl_kjadian, String wkt_kejadian, String wkt_tndk_lnjt, String level) {
+    private void sendReport(String subject, String catatatan, String lokasi, String now, String tgl_kjadian,String Username, String wkt_kejadian, String wkt_tndk_lnjt, String level) {
 //        Toast.makeText(getActivity(), "Ngga kosong hore", Toast.LENGTH_SHORT).show();
         getDialogmuter().show();
 
@@ -304,7 +311,7 @@ public class Fragment_incidentReport extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ReportInterface service = retrofit.create(ReportInterface.class);
-        Call<IncidentReport> call = service.sendReport(new IncidentReportJSON(subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian,wkt_tndk_lnjt,level));
+        Call<IncidentReport> call = service.sendReport(new IncidentReportJSON(subject, catatatan, lokasi, now, tgl_kjadian,Username, wkt_kejadian,wkt_tndk_lnjt,level));
         call.enqueue(new Callback<IncidentReport>() {
             @Override
             public void onResponse(Call<IncidentReport> call, Response<IncidentReport> response) {
@@ -406,7 +413,7 @@ public class Fragment_incidentReport extends Fragment {
         return mDialog;
     }
 
-    private SweetAlertDialog ConfirmationDIalog(String s, final String subject, final String catatatan, final String lokasi, final String now, final String tgl_kjadian, final String wkt_kejadian, final String wkt_tndk_lnjt, final String level) {
+    private SweetAlertDialog ConfirmationDIalog(String s, final String subject, final String catatatan, final String lokasi, final String now, final String tgl_kjadian, final String wkt_kejadian,final String Username, final String wkt_tndk_lnjt, final String level) {
         mDialog = new SweetAlertDialog(getActivity());
         mDialog.setTitleText("BIRISK");
         mDialog.setContentText(s);
@@ -417,7 +424,7 @@ public class Fragment_incidentReport extends Fragment {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
                 mDialog.dismiss();
-                sendReport(subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian, wkt_tndk_lnjt, level);
+                sendReport(subject, catatatan, lokasi, now, tgl_kjadian, wkt_kejadian, Username, wkt_tndk_lnjt, level);
             }
         });
         mDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
